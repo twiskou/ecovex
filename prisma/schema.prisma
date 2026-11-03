@@ -6,7 +6,8 @@
 // Valid values are documented in comments and validated by Zod schemas.
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
