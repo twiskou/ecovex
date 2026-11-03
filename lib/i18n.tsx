@@ -1,0 +1,788 @@
+"use client";
+
+import React, { createContext, useContext, useEffect, useState } from "react";
+
+export type Lang = "fr" | "ar";
+
+export const translations = {
+  fr: {
+    // ── Common ────────────────────────────────────────────────────────
+    common: {
+      appName: "ECOVEX",
+      tagline: "Gestion intelligente des déchets",
+      connect: "Connexion",
+      register: "Commencer",
+      registerFree: "Commencer gratuitement",
+      logout: "Déconnexion",
+      profile: "Mon profil",
+      save: "Enregistrer",
+      cancel: "Annuler",
+      back: "Retour",
+      loading: "Chargement...",
+      error: "Une erreur est survenue.",
+      noData: "Aucune donnée disponible.",
+      search: "Rechercher",
+      searchPlaceholder: "Rechercher...",
+      filter: "Filtrer",
+      all: "Tous",
+      actions: "Actions",
+      confirm: "Confirmer",
+      delete: "Supprimer",
+      edit: "Modifier",
+      create: "Créer",
+      yes: "Oui",
+      no: "Non",
+      status: "Statut",
+      date: "Date",
+      details: "Détails",
+      send: "Envoyer",
+      submit: "Soumettre",
+      approve: "Approuver",
+      reject: "Rejeter",
+      reason: "Motif",
+      points: "Points",
+      operations: "Opérations",
+      home: "Accueil",
+      close: "Fermer",
+      viewDetails: "Voir les détails",
+      kg: "kg",
+      units: "unités",
+      switchToAr: "العربية",
+      switchToFr: "Français",
+      currentLangLabel: "Français",
+    },
+
+    // ── Roles ─────────────────────────────────────────────────────────
+    roles: {
+      CITIZEN: "Citoyen",
+      VERIFIER: "Vérificateur",
+      ADMIN: "Administrateur",
+    },
+
+    // ── Statuses ──────────────────────────────────────────────────────
+    statuses: {
+      PENDING: "En attente",
+      APPROVED: "Approuvée",
+      REJECTED: "Rejetée",
+      CANCELLED: "Annulée",
+    },
+
+    // ── Navigation ────────────────────────────────────────────────────
+    nav: {
+      features: "Fonctionnalités",
+      collectionPoints: "Points de collecte",
+      impact: "Notre impact",
+      about: "À propos",
+      contact: "Contact",
+      login: "Connexion",
+      register: "Commencer",
+    },
+
+    // ── Footer ────────────────────────────────────────────────────────
+    footer: {
+      desc: "Application intelligente de gestion et de valorisation des déchets. Ensemble, construisons un avenir plus propre.",
+      product: "Produit",
+      company: "Société",
+      legal: "Légal",
+      privacy: "Confidentialité",
+      terms: "Conditions d'utilisation",
+      cookies: "Politique cookies",
+      rights: "Tous droits réservés.",
+      sustainable: "Pour un avenir durable",
+    },
+
+    // ── Auth Pages ────────────────────────────────────────────────────
+    auth: {
+      loginTitle: "Connexion",
+      loginSub: "Connectez-vous à votre espace ECOVEX",
+      email: "Adresse email",
+      emailPlaceholder: "votre@email.com",
+      password: "Mot de passe",
+      passwordPlaceholder: "Votre mot de passe",
+      loginBtn: "Se connecter",
+      loggingIn: "Connexion en cours...",
+      noAccount: "Pas encore de compte ?",
+      createAccount: "Créer un compte",
+      registerTitle: "Créer un compte",
+      registerSub: "Rejoignez la communauté ECOVEX gratuitement",
+      firstName: "Prénom",
+      lastName: "Nom",
+      confirmPassword: "Confirmer le mot de passe",
+      registerBtn: "Créer mon compte",
+      registering: "Création en cours...",
+      alreadyAccount: "Déjà un compte ?",
+      signIn: "Se connecter",
+      termsNotice: "En créant un compte, vous acceptez nos",
+      and: "et notre",
+      privacyLink: "politique de confidentialité",
+      termsLink: "conditions d'utilisation",
+      showPwd: "Afficher le mot de passe",
+      hidePwd: "Masquer le mot de passe",
+      rule8chars: "Au moins 8 caractères",
+      ruleUppercase: "Au moins une majuscule",
+      ruleDigit: "Au moins un chiffre",
+      accessDeniedTitle: "Accès refusé",
+      accessDeniedSub: "Vous n'avez pas les autorisations nécessaires pour accéder à cet espace.",
+      accessDeniedDesc: "Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'administrateur de la plateforme ou vous reconnecter avec un compte disposant des droits requis.",
+      switchAccount: "Changer de compte",
+      backHome: "Retour à l'accueil",
+    },
+
+    // ── Public Home ───────────────────────────────────────────────────
+    home: {
+      badge: "Gestion intelligente des déchets",
+      title1: "Valorisez vos déchets,",
+      title2: "gagnez des points",
+      sub: "ECOVEX vous aide à trier, collecter et recycler vos déchets. Chaque geste compte. Obtenez des points écologiques et contribuez à un avenir plus propre.",
+      ctaStart: "Commencer gratuitement",
+      ctaFeatures: "Découvrir les fonctionnalités",
+      proofFree: "Gratuit pour les citoyens",
+      proofVerified: "Points vérifiés et certifiés",
+      proofBilingual: "Interface en français et arabe",
+      realDataNotice: "Données réelles issues de la communauté ECOVEX.",
+      statOps: "Opérations traitées",
+      statPoints: "Points distribués",
+      statPointsCollecte: "Points de collecte",
+      statCitizens: "Citoyens actifs",
+      featBadge: "Fonctionnalités",
+      featTitle: "Tout pour bien gérer vos déchets",
+      featSub: "Une plateforme complète pour les citoyens, les vérificateurs et les administrateurs.",
+      seeAllFeatures: "Voir toutes les fonctionnalités",
+      howBadge: "Comment ça marche",
+      howTitle: "Simple, rapide, efficace",
+      step1Title: "Inscrivez-vous",
+      step1Desc: "Créez votre compte citoyen en quelques secondes.",
+      step2Title: "Déclarez une collecte",
+      step2Desc: "Photographiez et déclarez votre opération de collecte.",
+      step3Title: "Vérification",
+      step3Desc: "Un vérificateur examine et valide votre déclaration.",
+      step4Title: "Gagnez des points",
+      step4Desc: "Recevez vos points écologiques après approbation.",
+      ctaBannerTitle: "Rejoignez le mouvement ECOVEX",
+      ctaBannerSub: "Chaque geste de tri compte. Créez votre compte gratuitement et commencez à contribuer à un avenir plus propre.",
+      ctaBannerBtn: "Créer un compte gratuit",
+      ctaBannerLearn: "En savoir plus",
+      features: [
+        {
+          title: "Analyse de déchets",
+          description: "Photographiez vos déchets et obtenez une identification automatique de la catégorie pour mieux les trier.",
+        },
+        {
+          title: "Points de collecte",
+          description: "Trouvez les points de collecte les plus proches de chez vous sur une carte interactive.",
+        },
+        {
+          title: "Système de points",
+          description: "Gagnez des points écologiques après validation de chaque opération de collecte vérifiée.",
+        },
+        {
+          title: "Vérification rigoureuse",
+          description: "Chaque déclaration est examinée par un vérificateur agréé avant attribution des points.",
+        },
+        {
+          title: "Statistiques et rapports",
+          description: "Suivez votre impact environnemental et consultez votre historique complet d'opérations.",
+        },
+        {
+          title: "Gestion complète",
+          description: "Les administrateurs gèrent les catégories, les points de collecte et les utilisateurs.",
+        },
+      ],
+    },
+
+    // ── Public Pages ──────────────────────────────────────────────────
+    about: {
+      badge: "À propos",
+      title: "Notre mission",
+      sub: "ECOVEX est une application intelligente de gestion et de valorisation des déchets, conçue pour encourager les comportements écologiques et faciliter le tri sélectif.",
+      missionTitle: "Notre mission",
+      missionDesc: "Améliorer la gestion des déchets en facilitant l'accès aux points de collecte, en encourageant le tri sélectif et en récompensant les comportements écologiques.",
+      visionTitle: "Notre vision",
+      visionDesc: "Un monde où chaque citoyen est acteur du changement environnemental, motivé et équipé pour contribuer à la préservation de notre planète.",
+      valuesTitle: "Nos valeurs",
+      valuesDesc: "Transparence, engagement, inclusion et innovation au service d'un futur durable. Chaque geste compte, quel que soit son auteur.",
+      conceptTitle: "Le concept ECOVEX",
+      conceptP1: "ECOVEX est une plateforme  qui rassemble citoyens, vérificateurs et administrateurs autour d'un objectif commun : améliorer la gestion et la valorisation des déchets.",
+      conceptP2: "Les citoyens déclarent leurs opérations de collecte en fournissant des preuves photographiques. Ces déclarations sont examinées par des vérificateurs agréés qui approuvent ou rejettent chaque opération selon des critères objectifs.",
+      conceptP3: "Après validation, des points écologiques sont attribués automatiquement aux citoyens. Ce système de gamification vise à encourager des comportements durables à long terme.",
+      conceptP4: "La plateforme est conçue pour être évolutive. Les prochaines versions pourraient intégrer des fonctionnalités d'intelligence artificielle avancée, de l'IoT pour les capteurs de remplissage, et des mécanismes de traçabilité supplémentaires.",
+      transparencyTitle: "Transparence technologique",
+      transparencyDesc: "ECOVEX est construit avec des technologies modernes et éprouvées. La plateforme est en cours de développement actif. Certaines fonctionnalités avancées (IA complète, IoT, blockchain) sont prévues pour des versions futures et ne sont pas encore opérationnelles.",
+    },
+
+    contact: {
+      badge: "Contact",
+      title: "Contactez-nous",
+      sub: "Une question, un problème ou une suggestion ? Nous sommes à votre écoute.",
+      nameLabel: "Nom complet",
+      emailLabel: "Email",
+      subjectLabel: "Sujet",
+      messageLabel: "Message",
+      sendBtn: "Envoyer le message",
+      sendingBtn: "Envoi en cours...",
+      sentTitle: "Message envoyé",
+      sentDesc: "Nous avons bien reçu votre message. Nous vous répondrons dans les meilleurs délais.",
+      sendAnother: "Envoyer un autre message",
+      emailSupport: "Email",
+      emailSupportVal: "contact@ecovex.app",
+      supportHours: "Support",
+      supportHoursVal: "Disponible du lundi au vendredi, 9h–17h.",
+      address: "Adresse",
+      addressVal: "Disponible prochainement.",
+    },
+
+    impact: {
+      badge: "Impact environnemental",
+      title: "Ensemble, nous faisons la différence",
+      sub: "ECOVEX collecte et présente des données réelles sur l'activité de la communauté. Les statistiques ci-dessous seront mises à jour automatiquement dès que des opérations seront validées.",
+      approvedOps: "Opérations approuvées",
+      approvedOpsDesc: "Opérations de collecte validées par nos vérificateurs.",
+      pointsDistributed: "Points écologiques distribués",
+      pointsDistributedDesc: "Points attribués aux citoyens après validation.",
+      citizensEngaged: "Citoyens engagés",
+      citizensEngagedDesc: "Utilisateurs ayant réalisé au moins une opération.",
+      realTimeTitle: "Données en temps réel",
+      realTimeDesc: "Toutes les statistiques affichées ici proviennent exclusivement des données réelles de la plateforme. Aucune donnée fictive n'est présentée. Les chiffres seront visibles dès que des opérations seront enregistrées et validées.",
+      whyTitle: "Pourquoi ça compte",
+      why1Title: "Réduction des déchets sauvages",
+      why1Desc: "Un système de collecte organisé réduit significativement les dépôts sauvages et améliore la propreté des espaces publics.",
+      why2Title: "Préservation des ressources",
+      why2Desc: "Le recyclage permet de récupérer des matières premières précieuses et de réduire l'empreinte carbone de la production.",
+      why3Title: "Sensibilisation citoyenne",
+      why3Desc: "Le système de points motive les citoyens et crée une dynamique collective en faveur de l'environnement.",
+    },
+
+    collectionPointsPage: {
+      badge: "Points de collecte",
+      title: "Trouvez un point de collecte",
+      sub: "Consultez la liste des points de collecte disponibles. Connectez-vous pour accéder à la carte interactive et déclarer une opération.",
+      noPointsTitle: "Aucun point de collecte disponible",
+      noPointsDesc: "Les points de collecte seront ajoutés prochainement par l'administrateur.",
+      availableCount: "point(s) de collecte disponible(s)",
+      interactiveMapTitle: "Accédez à la carte interactive",
+      interactiveMapDesc: "Connectez-vous pour voir les points de collecte sur une carte et déclarer vos opérations directement.",
+      connectBtn: "Se connecter",
+      registerBtn: "Créer un compte",
+    },
+
+    // ── Citoyen Space ─────────────────────────────────────────────────
+    citoyen: {
+      spaceTitle: "Espace Citoyen",
+      menuTitle: "Menu Citoyen",
+      dashboard: "Tableau de bord",
+      analyze: "Analyser un déchet",
+      newOp: "Déclarer une collecte",
+      myOps: "Mes opérations",
+      collectPoints: "Points de collecte",
+      myPoints: "Mes points",
+      notifications: "Notifications",
+      profile: "Mon profil",
+      welcome: "Bienvenue dans votre espace citoyen",
+      balance: "Solde de points",
+      pendingSubmissions: "Opérations en attente",
+      approvedSubmissions: "Opérations validées",
+      quickActions: "Actions rapides",
+      recentSubmissions: "Dernières opérations",
+      noSubmissionsYet: "Vous n'avez pas encore déclaré d'opération de collecte.",
+      startFirst: "Déclarer une opération",
+      analyzerTitle: "Analyse intelligente de déchets",
+      analyzerSub: "Photographiez vos déchets pour identifier leur catégorie et savoir où les déposer.",
+      aiDisclaimer: "Ce module d'analyse fournit une prédiction indicative. La validation définitive est effectuée par un vérificateur.",
+      uploadPrompt: "Sélectionnez une photo de vos déchets",
+      analyzeBtn: "Lancer l'analyse",
+      analyzing: "Analyse en cours...",
+      newOpTitle: "Nouvelle déclaration de collecte",
+      newOpSub: "Déclarez votre apport de déchets pour obtenir des points écologiques après validation.",
+      selectPoint: "Point de collecte",
+      selectCategory: "Catégorie de déchets",
+      estimatedWeight: "Quantité estimée (kg ou unités)",
+      proofPhoto: "Photo de preuve",
+      proofPhotoHelp: "Format JPG, PNG, WEBP ou AVIF. Max 5 Mo.",
+      submitOp: "Soumettre ma déclaration",
+      submitting: "Enregistrement en cours...",
+      pointsHistory: "Historique de vos points",
+      profileInfo: "Informations personnelles",
+      updateProfile: "Mettre à jour mes informations",
+    },
+
+    // ── Vérificateur Space ────────────────────────────────────────────
+    verificateur: {
+      spaceTitle: "Espace Vérificateur",
+      menuTitle: "Menu Vérificateur",
+      dashboard: "Tableau de bord",
+      toReview: "Opérations à examiner",
+      history: "Historique des décisions",
+      profile: "Mon profil",
+      pendingCount: "Opérations en attente d'examen",
+      reviewedCount: "Opérations traitées",
+      approvalRate: "Taux d'approbation",
+      noPending: "Aucune opération en attente d'examen pour le moment.",
+      reviewOperation: "Examen de l'opération",
+      citizenInfo: "Citoyen",
+      depositDetails: "Détails de l'apport",
+      proofPhoto: "Photo de preuve fournie",
+      decisionTitle: "Décision de vérification",
+      decisionHelp: "L'approbation créditera automatiquement les points sur le compte du citoyen dans une transaction atomique sécurisée.",
+      approveBtn: "Approuver l'opération",
+      rejectBtn: "Rejeter l'opération",
+      reasonLabel: "Motif de la décision (obligatoire)",
+      reasonPlaceholder: "Indiquez la raison de votre décision...",
+      confirmDecision: "Confirmer la décision",
+      processing: "Traitement en cours...",
+    },
+
+    // ── Admin Space ───────────────────────────────────────────────────
+    admin: {
+      spaceTitle: "Espace Administration",
+      menuTitle: "Menu Administration",
+      dashboard: "Tableau de bord",
+      users: "Utilisateurs",
+      roles: "Rôles & Permissions",
+      categories: "Catégories de déchets",
+      collectPoints: "Points de collecte",
+      allOps: "Toutes les opérations",
+      pointsTx: "Transactions de points",
+      stats: "Statistiques & Rapports",
+      auditLogs: "Journal d'audit",
+      settings: "Paramètres",
+      totalUsers: "Total utilisateurs",
+      totalOps: "Total opérations",
+      totalPoints: "Points distribués",
+      activePointsCount: "Points de collecte actifs",
+      toggleStatus: "Activer / Suspendre",
+      changeRole: "Modifier le rôle",
+      adjustPoints: "Ajuster les points",
+      adjustPointsTitle: "Ajustement contrôlé de points",
+      adjustPointsHelp: "Toute modification est enregistrée de manière immuable dans le journal d'audit.",
+      newPoint: "Créer un point de collecte",
+      newCategory: "Créer une catégorie",
+      auditReason: "Motif d'audit (obligatoire)",
+      auditNote: "Journal d'audit en lecture seule pour assurer la traçabilité complète des actions administratives.",
+    },
+  },
+
+  ar: {
+    // ── Common ────────────────────────────────────────────────────────
+    common: {
+      appName: "إيكوفيكس",
+      tagline: "إدارة ذكية ومستدامة للنفايات",
+      connect: "تسجيل الدخول",
+      register: "ابدأ الآن",
+      registerFree: "ابدأ مجاناً",
+      logout: "تسجيل الخروج",
+      profile: "ملفي الشخصي",
+      save: "حفظ",
+      cancel: "إلغاء",
+      back: "رجوع",
+      loading: "جارٍ التحميل...",
+      error: "حدث خطأ غير متوقع.",
+      noData: "لا توجد بيانات متاحة حالياً.",
+      search: "بحث",
+      searchPlaceholder: "ابحث هنا...",
+      filter: "تصفية",
+      all: "الكل",
+      actions: "إجراءات",
+      confirm: "تأكيد",
+      delete: "حذف",
+      edit: "تعديل",
+      create: "إنشاء",
+      yes: "نعم",
+      no: "لا",
+      status: "الحالة",
+      date: "التاريخ",
+      details: "التفاصيل",
+      send: "إرسال",
+      submit: "إرسال الطلب",
+      approve: "قبول واعتماد",
+      reject: "رفض",
+      reason: "السبب / التعليل",
+      points: "نقاط",
+      operations: "العمليات",
+      home: "الرئيسية",
+      close: "إغلاق",
+      viewDetails: "عرض التفاصيل",
+      kg: "كغ",
+      units: "وحدات",
+      switchToAr: "العربية",
+      switchToFr: "Français",
+      currentLangLabel: "العربية",
+    },
+
+    // ── Roles ─────────────────────────────────────────────────────────
+    roles: {
+      CITIZEN: "مواطن",
+      VERIFIER: "محقّق",
+      ADMIN: "مدير النظام",
+    },
+
+    // ── Statuses ──────────────────────────────────────────────────────
+    statuses: {
+      PENDING: "قيد المراجعة",
+      APPROVED: "معتمدة",
+      REJECTED: "مرفوضة",
+      CANCELLED: "ملغاة",
+    },
+
+    // ── Navigation ────────────────────────────────────────────────────
+    nav: {
+      features: "المميزات",
+      collectionPoints: "نقاط التجميع",
+      impact: "أثرنا البيئي",
+      about: "عن المنصة",
+      contact: "اتصل بنا",
+      login: "تسجيل الدخول",
+      register: "ابدأ الآن",
+    },
+
+    // ── Footer ────────────────────────────────────────────────────────
+    footer: {
+      desc: "منصة ذكية لإدارة وتثمين النفايات، تشجيع الفرز الانتقائي ومكافأة السلوكيات البيئية الإيجابية لمستقبل أنظف وأكثر استدامة.",
+      product: "المنتج",
+      company: "المنصة",
+      legal: "قانوني",
+      privacy: "سياسة الخصوصية",
+      terms: "شروط الاستخدام",
+      cookies: "ملفات تعريف الارتباط",
+      rights: "جميع الحقوق محفوظة.",
+      sustainable: "معاً من أجل بيئة مستدامة",
+    },
+
+    // ── Auth Pages ────────────────────────────────────────────────────
+    auth: {
+      loginTitle: "تسجيل الدخول",
+      loginSub: "سجّل الدخول إلى فضائك في إيكوفيكس",
+      email: "البريد الإلكتروني",
+      emailPlaceholder: "example@email.com",
+      password: "كلمة المرور",
+      passwordPlaceholder: "أدخل كلمة المرور",
+      loginBtn: "دخول",
+      loggingIn: "جارٍ تسجيل الدخول...",
+      noAccount: "ليس لديك حساب بعد؟",
+      createAccount: "إنشاء حساب مواطن",
+      registerTitle: "إنشاء حساب جديد",
+      registerSub: "انضم إلى مجتمع إيكوفيكس مجاناً وساهم في حماية البيئة",
+      firstName: "الاسم الأول",
+      lastName: "اللقب",
+      confirmPassword: "تأكيد كلمة المرور",
+      registerBtn: "إنشاء حسابي",
+      registering: "جارٍ إنشاء الحساب...",
+      alreadyAccount: "لديك حساب بالفعل؟",
+      signIn: "تسجيل الدخول",
+      termsNotice: "بإنشاء حساب، فإنك توافق على",
+      and: "و",
+      privacyLink: "سياسة الخصوصية",
+      termsLink: "شروط الاستخدام",
+      showPwd: "إظهار كلمة المرور",
+      hidePwd: "إخفاء كلمة المرور",
+      rule8chars: "8 أحرف على الأقل",
+      ruleUppercase: "حرف كبير واحد على الأقل",
+      ruleDigit: "رقم واحد على الأقل",
+      accessDeniedTitle: "الدخول مرفوض",
+      accessDeniedSub: "ليس لديك الصلاحيات المطلوبة للوصول إلى هذا الفضاء.",
+      accessDeniedDesc: "إذا كنت تعتقد أن هذا خطأ، يرجى التواصل مع إدارة المنصة أو تسجيل الدخول بحساب يملك الصلاحيات المعتمدة.",
+      switchAccount: "تبديل الحساب",
+      backHome: "العودة للرئيسية",
+    },
+
+    // ── Public Home ───────────────────────────────────────────────────
+    home: {
+      badge: "إدارة ذكية ومستدامة للنفايات",
+      title1: "ثمّن نفاياتك،",
+      title2: "واكسب نقاطاً بيئية",
+      sub: "تساعدك منصة إيكوفيكس على فرز نفاياتك وتجميعها وإعادة تدويرها. كل حركة تصنع الفرق. احصل على نقاط بيئية وساهم في بناء مستقبل أنظف.",
+      ctaStart: "ابدأ مجاناً الآن",
+      ctaFeatures: "استكشف المميزات",
+      proofFree: "مجاني تماماً للمواطنين",
+      proofVerified: "نقاط موثقة ومتحقق منها",
+      proofBilingual: "واجهة متكاملة بالفرنسية والعربية",
+      realDataNotice: "بيانات حقيقية مستخرجة من مجتمع إيكوفيكس.",
+      statOps: "العمليات المعالجة",
+      statPoints: "النقاط الموزعة",
+      statPointsCollecte: "نقاط التجميع",
+      statCitizens: "المواطنون النشطون",
+      featBadge: "المميزات",
+      featTitle: "كل ما تحتاجه لإدارة نفاياتك بذكاء",
+      featSub: "منصة متكاملة للمواطنين والمحققين والمسؤولين لتحقيق أقصى استفادة بيئية.",
+      seeAllFeatures: "عرض جميع المميزات",
+      howBadge: "كيف تعمل المنصة",
+      howTitle: "بسيطة، سريعة، وفعّالة",
+      step1Title: "سجّل حسابك",
+      step1Desc: "أنشئ حسابك كمواطن مجاناً في ثوانٍ معدودة.",
+      step2Title: "صرّح بعملية تجميع",
+      step2Desc: "صوّر نفاياتك وقدّم تصريح الإيداع بسهولة.",
+      step3Title: "المراجعة والتحقق",
+      step3Desc: "يقوم محقق معتمد بفحص الأدلة واعتماد العملية.",
+      step4Title: "اكسب نقاطك",
+      step4Desc: "استلم نقاطك البيئية مباشرة فور المصادقة على طلبك.",
+      ctaBannerTitle: "انضم إلى حركة إيكوفيكس البيئية",
+      ctaBannerSub: "كل عملية فرز تساهم في حماية كوكبنا. أنشئ حسابك مجاناً وابدأ بتحويل النفايات إلى مكافآت حقيقية.",
+      ctaBannerBtn: "إنشاء حساب مجاني",
+      ctaBannerLearn: "تعرف على المزيد",
+      features: [
+        {
+          title: "تحليل ذكي للنفايات",
+          description: "صوّر نفاياتك وتعرّف تلقائياً على فئتها وطريقة فرزها السليمة بمساعدة تقنيات الذكاء الاصطناعي.",
+        },
+        {
+          title: "نقاط التجميع المعتمدة",
+          description: "ابحث عن أقرب مراكز وحاويات التجميع إليك على خريطة تفاعلية واضحة ومحدثة.",
+        },
+        {
+          title: "نظام النقاط والمكافآت",
+          description: "اكسب نقاطاً بيئية قيمة وموثقة فور اعتماد كل عملية تسليم نفايات من قبل المحققين.",
+        },
+        {
+          title: "تحقق واعتماد صارم",
+          description: "تتم مراجعة كل تصريح من قبل محققين معتمدين لضمان الشفافية وموثوقية البيانات.",
+        },
+        {
+          title: "إحصاءات وتقارير بيئية",
+          description: "تابع أثرك البيئي الإيجابي واطلع على سجلك الكامل لعمليات التجميع والنقاط المكتسبة.",
+        },
+        {
+          title: "إدارة شاملة وموثوقة",
+          description: "لوحة تحكم إدارية متقدمة لإدارة فئات النفايات ومراكز التجميع وتتبع العمليات لحظياً.",
+        },
+      ],
+    },
+
+    // ── Public Pages ──────────────────────────────────────────────────
+    about: {
+      badge: "عن المنصة",
+      title: "مهمتنا ورؤيتنا",
+      sub: "إيكوفيكس تطبيق ذكي لإدارة وتثمين النفايات، صُمم لتحفيز السلوكيات البيئية الإيجابية وتسهيل الفرز الانتقائي بمشاركة مجتمعية واسعة.",
+      missionTitle: "رسالتنا",
+      missionDesc: "الارتقاء بإدارة النفايات عبر تسهيل الوصول لنقاط الجمع، وتحفيز الفرز الانتقائي ومكافأة السلوكيات البيئية الإيجابية بعدالة وشفافية.",
+      visionTitle: "رؤيتنا",
+      visionDesc: "عالم يكون فيه كل مواطن عنصراً فاعلاً في حماية البيئة، مدفوعاً بالأدوات الحديثة لصون كوكبنا للأجيال القادمة.",
+      valuesTitle: "قيمنا",
+      valuesDesc: "الشفافية، الالتزام البيئي، الشمولية، والابتكار لخدمة مستقبل مستدام. كل حركة تصنع الفرق مهما كانت بسيطة.",
+      conceptTitle: "مفهوم منصة إيكوفيكس",
+      conceptP1: "إيكوفيكس منصة نموذجية أولية تجمع المواطنين والمحققين والمسؤولين حول هدف مشترك: تحسين إدارة وتثمين النفايات.",
+      conceptP2: "يقوم المواطنون بالتصريح عن عمليات الجمع وتقديم صور كأدلة إثبات، ثم يتولى محققون معتمدون فحص الأدلة واعتمادها بموضوعية.",
+      conceptP3: "عقب المصادقة، يتم منح نقاط بيئية تلقائياً للمواطنين ضمن آلية تحفيز تهدف إلى ترسيخ السلوكيات المستدامة على المدى الطويل.",
+      conceptP4: "المنصة مصممة لتكون قابلة للتوسع، مع إمكانية دمج تقنيات متقدمة مثل الذكاء الاصطناعي الشامل، وأجهزة استشعار إنترنت الأشياء، وسجلات التتبع اللامركزية.",
+      transparencyTitle: "الشفافية التقنية",
+      transparencyDesc: "تم بناء إيكوفيكس بأحدث التقنيات الموثوقة. المنصة قيد التطوير النشط، والوظائف المتقدمة (الذكاء الاصطناعي الكامل، إنترنت الأشياء، وبلوكشين) مبرمجة في الإصدارات المستقبلية.",
+    },
+
+    contact: {
+      badge: "اتصل بنا",
+      title: "تواصل مع فريقنا",
+      sub: "لديك استفسار، مشكلة، أو اقتراح؟ نحن هنا دائماً للاستماع إليك ومساعدتك.",
+      nameLabel: "الاسم الكامل",
+      emailLabel: "البريد الإلكتروني",
+      subjectLabel: "الموضوع",
+      messageLabel: "نص الرسالة",
+      sendBtn: "إرسال الرسالة",
+      sendingBtn: "جارٍ الإرسال...",
+      sentTitle: "تم إرسال رسالتك بنجاح",
+      sentDesc: "شكراً لتواصلك معنا. تلقينا رسالتك وسنرد عليك في أقرب وقت ممكن.",
+      sendAnother: "إرسال رسالة أخرى",
+      emailSupport: "البريد المباشر",
+      emailSupportVal: "contact@ecovex.app",
+      supportHours: "ساعات الدعم",
+      supportHoursVal: "متاح من الإثنين إلى الجمعة، 9 صباحاً – 5 مساءً.",
+      address: "العنوان",
+      addressVal: "سيتوفر قريباً.",
+    },
+
+    impact: {
+      badge: "الأثر البيئي",
+      title: "معاً، نصنع فارقاً حقيقياً",
+      sub: "تجمع إيكوفيكس وتعرض إحصاءات حقيقية حول نشاط المجتمع والفرز. يتم تحديث الأرقام تلقائياً فور اعتماد العمليات.",
+      approvedOps: "العمليات المعتمدة",
+      approvedOpsDesc: "عمليات التجميع التي تمت مراجعتها والمصادقة عليها من قبل المحققين.",
+      pointsDistributed: "النقاط البيئية الموزعة",
+      pointsDistributedDesc: "النقاط الممنوحة للمواطنين بعد المصادقة على عملياتهم.",
+      citizensEngaged: "المواطنون الملتزمون",
+      citizensEngagedDesc: "المستخدمون الفاعلون الذين أنجزوا عملية تجميع واحدة على الأقل.",
+      realTimeTitle: "بيانات حية وموثوقة",
+      realTimeDesc: "كافة الإحصاءات المعروضة هنا مستمدة حصرياً من البيانات الحقيقية للمنصة دون أي أرقام وهمية أو افتراضية.",
+      whyTitle: "لماذا هذا مهم؟",
+      why1Title: "الحد من المكبّات العشوائية",
+      why1Desc: "نظام الجمع المنظم يقلل بشكل ملحوظ من النفايات العشوائية ويعزز نظافة وجمال الأماكن العامة.",
+      why2Title: "الحفاظ على الموارد الطبيعية",
+      why2Desc: "تساعد إعادة التدوير على استرجاع مواد خام ثمينة وتقليص البصمة الكربونية للإنتاج الصناعي.",
+      why3Title: "ترسيخ الوعي المجتمعي",
+      why3Desc: "يحفز نظام المكافآت المواطنين ويخلق ديناميكية جماعية داعمة للبيئة والاستدامة.",
+    },
+
+    collectionPointsPage: {
+      badge: "نقاط التجميع",
+      title: "ابحث عن أقرب نقطة تجميع",
+      sub: "استعرض قائمة مراكز التجميع المعتمدة والمتاحة بالقرب منك. سجّل دخولك للوصول إلى الخريطة التفاعلية وبدء التصريح.",
+      noPointsTitle: "لا توجد نقاط تجميع متاحة حالياً",
+      noPointsDesc: "سيتم إضافة نقاط التجميع قريباً من قبل إدارة المنصة.",
+      availableCount: "نقطة تجميع متوفرة",
+      interactiveMapTitle: "تصفح الخريطة التفاعلية",
+      interactiveMapDesc: "سجّل دخولك لمشاهدة جميع النقاط على خريطة تفاعلية والتصريح عن عملياتك مباشرة.",
+      connectBtn: "تسجيل الدخول",
+      registerBtn: "إنشاء حساب مواطن",
+    },
+
+    // ── Citoyen Space ─────────────────────────────────────────────────
+    citoyen: {
+      spaceTitle: "فضاء المواطن",
+      menuTitle: "قائمة المواطن",
+      dashboard: "لوحة التحكم",
+      analyze: "تحليل نفاية",
+      newOp: "تصريح تجميع جديد",
+      myOps: "عملياتي السابقة",
+      collectPoints: "نقاط التجميع",
+      myPoints: "رصيد نقاطي",
+      notifications: "الإشعارات",
+      profile: "الملف الشخصي",
+      welcome: "مرحباً بك في فضاء المواطن",
+      balance: "رصيد النقاط البيئية",
+      pendingSubmissions: "عمليات قيد المراجعة",
+      approvedSubmissions: "عمليات معتمدة",
+      quickActions: "إجراءات سريعة",
+      recentSubmissions: "أحدث العمليات",
+      noSubmissionsYet: "لم تقم بالتصريح عن أي عملية تجميع بعد.",
+      startFirst: "التصريح عن عملية تجميع",
+      analyzerTitle: "التحليل الذكي للنفايات",
+      analyzerSub: "صوّر نفاياتك للتعرف على فئتها ومعرفة أنسب نقطة تجميع لها.",
+      aiDisclaimer: "هذا النموذج يقدم نتيجة استرشادية، ويخضع التحقق النهائي لتقدير المحقق عند التسليم.",
+      uploadPrompt: "اختر أو اسحب صورة لنفاياتك هنا",
+      analyzeBtn: "بدء التحليل",
+      analyzing: "جارٍ التحليل والتعرف...",
+      newOpTitle: "تصريح تجميع جديد",
+      newOpSub: "صرّح عن تسليم نفاياتك لكسب نقاط بيئية بعد التحقق والاعتماد.",
+      selectPoint: "نقطة التجميع المعتمدة",
+      selectCategory: "فئة النفايات",
+      estimatedWeight: "الكمية المقدرة (كغ أو وحدات)",
+      proofPhoto: "صورة الإثبات",
+      proofPhotoHelp: "صيغة JPG أو PNG أو WEBP أو AVIF. الحجم الأقصى 5 ميغابايت.",
+      submitOp: "إرسال التصريح للمراجعة",
+      submitting: "جارٍ حفظ البيانات...",
+      pointsHistory: "سجل حركات نقاطك",
+      profileInfo: "البيانات الشخصية",
+      updateProfile: "تحديث البيانات",
+    },
+
+    // ── Vérificateur Space ────────────────────────────────────────────
+    verificateur: {
+      spaceTitle: "فضاء المحقق",
+      menuTitle: "قائمة المحقق",
+      dashboard: "لوحة التحكم",
+      toReview: "العمليات بانتظار الفحص",
+      history: "سجل القرارات السابقة",
+      profile: "الملف الشخصي",
+      pendingCount: "عمليات تنتظر الفحص والاعتماد",
+      reviewedCount: "العمليات المكتملة",
+      approvalRate: "نسبة القبول",
+      noPending: "لا توجد عمليات معلقة للمراجعة حالياً.",
+      reviewOperation: "فحص العملية والأدلة",
+      citizenInfo: "بيانات المواطن",
+      depositDetails: "تفاصيل الإيداع",
+      proofPhoto: "صورة الإثبات المرفقة",
+      decisionTitle: "قرار التحقق والاعتماد",
+      decisionHelp: "المصادقة على العملية ستمنح النقاط البيئية تلقائياً للمواطن عبر معاملة ذرية آمنة في قاعدة البيانات.",
+      approveBtn: "المصادقة على العملية",
+      rejectBtn: "رفض العملية",
+      reasonLabel: "سبب القرار (إلزامي)",
+      reasonPlaceholder: "اكتب سبب القبول أو الرفض بالتفصيل...",
+      confirmDecision: "تأكيد القرار النهائي",
+      processing: "جارٍ المعالجة والتحقق...",
+    },
+
+    // ── Admin Space ───────────────────────────────────────────────────
+    admin: {
+      spaceTitle: "فضاء الإدارة العامة",
+      menuTitle: "قائمة الإدارة",
+      dashboard: "لوحة التحكم العامة",
+      users: "إدارة المستخدمين",
+      roles: "الأدوار والصلاحيات",
+      categories: "فئات النفايات",
+      collectPoints: "نقاط التجميع",
+      allOps: "سجل العمليات العام",
+      pointsTx: "معاملات النقاط",
+      stats: "الإحصاءات والتقارير",
+      auditLogs: "سجل التتبع والرقابة",
+      settings: "إعدادات المنصة",
+      totalUsers: "إجمالي المستخدمين",
+      totalOps: "إجمالي العمليات",
+      totalPoints: "مجموع النقاط الموزعة",
+      activePointsCount: "نقاط التجميع النشطة",
+      toggleStatus: "تفعيل / تعطيل الحساب",
+      changeRole: "تعديل الصلاحية",
+      adjustPoints: "تعديل رصيد النقاط",
+      adjustPointsTitle: "تعديل إداري منضبط للنقاط",
+      adjustPointsHelp: "يتم توثيق كل حركة تعديل يدوي بصورة غير قابلة للحذف في سجل التتبع الرقابي.",
+      newPoint: "إضافة نقطة تجميع جديدة",
+      newCategory: "إضافة فئة نفايات جديدة",
+      auditReason: "سبب التعديل والتدقيق (إلزامي)",
+      auditNote: "سجل الرقابة مخصص للقراءة فقط لضمان سلامة وشفافية كافة الإجراءات الإدارية.",
+    },
+  },
+} as const;
+
+export type Translations = typeof translations.fr;
+
+export interface LangContextType {
+  lang: Lang;
+  dir: "ltr" | "rtl";
+  t: Translations;
+  setLang: (lang: Lang) => void;
+  toggleLang: () => void;
+}
+
+const LangContext = createContext<LangContextType>({
+  lang: "fr",
+  dir: "ltr",
+  t: translations.fr,
+  setLang: () => {},
+  toggleLang: () => {},
+});
+
+export function useLang() {
+  return useContext(LangContext);
+}
+
+export function LangProvider({ children }: { children: React.ReactNode }) {
+  const [lang, setLangState] = useState<Lang>("fr");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const saved = localStorage.getItem("ecovex_lang") as Lang | null;
+    if (saved === "ar" || saved === "fr") {
+      setLangState(saved);
+      document.documentElement.lang = saved;
+      document.documentElement.dir = saved === "ar" ? "rtl" : "ltr";
+    } else {
+      document.documentElement.lang = "fr";
+      document.documentElement.dir = "ltr";
+    }
+  }, []);
+
+  const applyLang = (newLang: Lang) => {
+    setLangState(newLang);
+    try {
+      localStorage.setItem("ecovex_lang", newLang);
+      document.documentElement.lang = newLang;
+      document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
+    } catch {
+      // localStorage may fail in private mode
+    }
+  };
+
+  const setLang = (newLang: Lang) => {
+    applyLang(newLang);
+  };
+
+  const toggleLang = () => {
+    applyLang(lang === "fr" ? "ar" : "fr");
+  };
+
+  const dir: "ltr" | "rtl" = lang === "ar" ? "rtl" : "ltr";
+  const t = translations[lang] as unknown as Translations;
+
+  return (
+    <LangContext.Provider value={{ lang, dir, t, setLang, toggleLang }}>
+      {children}
+    </LangContext.Provider>
+  );
+}
+
