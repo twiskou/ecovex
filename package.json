@@ -14,13 +14,11 @@
     "@base-ui/react": "^1.9.0",
     "@hookform/resolvers": "^6.0.2",
     "@libsql/client": "^0.18.0",
-    "@prisma/adapter-better-sqlite3": "^7.10.1",
     "@prisma/adapter-libsql": "^5.22.0",
     "@prisma/client": "^5.22.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/leaflet": "^1.9.22",
     "bcryptjs": "^3.0.3",
-    "better-sqlite3": "^13.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cn": "^0.5.0",
@@ -44,7 +42,6 @@
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
-    "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -53,5 +50,10 @@
     "prisma": "^5.22.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@prisma/adapter-libsql": {
+      "@libsql/client": "$@libsql/client"
+    }
   }
 }
