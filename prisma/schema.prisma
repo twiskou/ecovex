@@ -32,6 +32,7 @@ model User {
   verifications     Verification[]
   pointTransactions PointTransaction[]
   auditLogs         AuditLog[]
+  ecologicalGoals   EcologicalGoal[]
 
   @@index([email])
   @@index([role])
@@ -192,4 +193,19 @@ model AuditLog {
   @@index([userId])
   @@index([createdAt])
   @@index([action])
+}
+
+model EcologicalGoal {
+  id          String   @id @default(cuid())
+  userId      String
+  targetKg    Float
+  period      String   @default("MONTHLY") // "WEEKLY" | "MONTHLY"
+  categoryId  String?
+  startDate   DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

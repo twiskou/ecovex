@@ -12,6 +12,7 @@ import {
   Award,
   Bell,
   UserCircle,
+  Leaf,
   X,
 } from "lucide-react";
 import { DashboardHeader } from "@/components/shared/dashboard-header";
@@ -30,6 +31,7 @@ export function CitoyenShell({ children, userEmail }: CitoyenShellProps) {
 
   const citizenNav = [
     { href: "/citoyen", label: t.citoyen.dashboard, icon: LayoutDashboard },
+    { href: "/citoyen/empreinte-ecologique", label: t.citoyen.carbonFootprint, icon: Leaf },
     { href: "/citoyen/analyser", label: t.citoyen.analyze, icon: Camera },
     { href: "/citoyen/operations/nouvelle", label: t.citoyen.newOp, icon: PlusCircle },
     { href: "/citoyen/operations", label: t.citoyen.myOps, icon: History },
