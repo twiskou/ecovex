@@ -59,6 +59,7 @@ export function CitoyenShell({ children, userEmail }: CitoyenShellProps) {
                 <Link
                   key={item.href}
                   href={item.href}
+                  prefetch={false}
                   className={cn(
                     "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                     active
@@ -101,6 +102,7 @@ export function CitoyenShell({ children, userEmail }: CitoyenShellProps) {
                     <Link
                       key={item.href}
                       href={item.href}
+                      prefetch={false}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
                         "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",

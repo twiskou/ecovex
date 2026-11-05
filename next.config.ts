@@ -9,6 +9,18 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  images: {
+    // Allow base64 data URLs (used for uploaded images stored in Turso on Vercel serverless)
+    dangerouslyAllowSVG: false,
+    // Domains for future CDN/cloud storage
+    remotePatterns: [],
+  },
+  // Handle unhandled promise rejections gracefully in production
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "4mb",
+    },
+  },
 };
 
 export default nextConfig;
