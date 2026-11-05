@@ -143,3 +143,4 @@ export function EmpreinteGoalsCard({ goal }: EmpreinteGoalsCardProps) {
     </Card>
   );
 }
+

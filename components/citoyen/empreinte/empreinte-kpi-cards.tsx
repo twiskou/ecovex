@@ -117,3 +117,4 @@ export function EmpreinteKpiCards({ summary }: EmpreinteKpiCardsProps) {
     </div>
   );
 }
+

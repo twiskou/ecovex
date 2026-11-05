@@ -76,3 +76,4 @@ export function CitoyenEmpreinteView({ data }: CitoyenEmpreinteViewProps) {
     </div>
   );
 }
+

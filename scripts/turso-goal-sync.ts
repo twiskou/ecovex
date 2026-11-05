@@ -38,3 +38,4 @@ run()
     console.error("Turso sync error:", e);
     process.exit(1);
   });
+

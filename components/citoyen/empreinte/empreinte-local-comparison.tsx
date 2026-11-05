@@ -142,3 +142,4 @@ export function EmpreinteLocalComparison({ comparison }: EmpreinteLocalCompariso
     </Card>
   );
 }
+

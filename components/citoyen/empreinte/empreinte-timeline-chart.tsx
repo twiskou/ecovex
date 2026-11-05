@@ -137,3 +137,4 @@ export function EmpreinteTimelineChart({ timeline }: EmpreinteTimelineChartProps
     </Card>
   );
 }
+

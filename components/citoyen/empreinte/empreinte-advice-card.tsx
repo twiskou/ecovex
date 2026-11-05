@@ -58,3 +58,4 @@ export function EmpreinteAdviceCard({ advice }: EmpreinteAdviceCardProps) {
     </Card>
   );
 }
+

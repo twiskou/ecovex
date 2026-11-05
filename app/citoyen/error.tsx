@@ -45,3 +45,4 @@ export default function CitoyenError({ error, reset }: CitoyenErrorProps) {
     </div>
   );
 }
+
