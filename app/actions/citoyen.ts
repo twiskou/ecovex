@@ -8,52 +8,60 @@ import { classifyWasteImage } from "@/lib/ai-classification";
 import { z } from "zod";
 
 export async function classifyWastePhotoAction(formData: FormData) {
-  const session = await requireAuth();
-  if (!session) {
-    return { success: false, error: "Vous devez être connecté pour analyser une photo." };
+  try {
+    const session = await requireAuth();
+    if (!session) {
+      return { success: false, error: "Vous devez être connecté pour analyser une photo." };
+    }
+
+    const file = formData.get("photo") as File | null;
+    if (!file || file.size === 0) {
+      return { success: false, error: "Veuillez sélectionner une image valide." };
+    }
+
+    const uploadResult = await saveUploadedFile(file);
+    if (uploadResult.error || !uploadResult.url) {
+      return { success: false, error: uploadResult.error || "Échec de l'enregistrement de l'image." };
+    }
+
+    const classification = await classifyWasteImage(uploadResult.url, file.name, session.userId);
+
+    // Enregistrement dans la base
+    const record = await prisma.aIClassification.create({
+      data: {
+        imageUrl: uploadResult.url,
+        predictedCategory: classification.categoryName,
+        confidence: classification.confidence,
+        rawResult: classification.rawResult,
+        status: classification.status,
+        submittedById: session.userId,
+        categoryId: classification.categoryId,
+      },
+    });
+
+    return {
+      success: true,
+      data: {
+        id: record.id,
+        imageUrl: record.imageUrl,
+        categoryName: classification.categoryName,
+        categoryId: classification.categoryId,
+        confidence: classification.confidence,
+        status: classification.status,
+        disclaimer: classification.disclaimer,
+        itemIdentified: classification.itemIdentified,
+        material: classification.material,
+        sortingAdvice: classification.sortingAdvice,
+        isAiPowered: classification.isAiPowered,
+      },
+    };
+  } catch (err: any) {
+    console.error("Error in classifyWastePhotoAction:", err);
+    return {
+      success: false,
+      error: err?.message || "Une erreur inattendue est survenue lors de l'analyse.",
+    };
   }
-
-  const file = formData.get("photo") as File | null;
-  if (!file || file.size === 0) {
-    return { success: false, error: "Veuillez sélectionner une image valide." };
-  }
-
-  const uploadResult = await saveUploadedFile(file);
-  if (uploadResult.error || !uploadResult.url) {
-    return { success: false, error: uploadResult.error || "Échec de l'enregistrement de l'image." };
-  }
-
-  const classification = await classifyWasteImage(uploadResult.url, file.name, session.userId);
-
-  // Enregistrement dans la base
-  const record = await prisma.aIClassification.create({
-    data: {
-      imageUrl: uploadResult.url,
-      predictedCategory: classification.categoryName,
-      confidence: classification.confidence,
-      rawResult: classification.rawResult,
-      status: classification.status,
-      submittedById: session.userId,
-      categoryId: classification.categoryId,
-    },
-  });
-
-  return {
-    success: true,
-    data: {
-      id: record.id,
-      imageUrl: record.imageUrl,
-      categoryName: classification.categoryName,
-      categoryId: classification.categoryId,
-      confidence: classification.confidence,
-      status: classification.status,
-      disclaimer: classification.disclaimer,
-      itemIdentified: classification.itemIdentified,
-      material: classification.material,
-      sortingAdvice: classification.sortingAdvice,
-      isAiPowered: classification.isAiPowered,
-    },
-  };
 }
 
 const submissionSchema = z.object({
@@ -66,69 +74,77 @@ const submissionSchema = z.object({
 });
 
 export async function submitCollectionAction(formData: FormData) {
-  const session = await requireAuth();
-  if (!session) {
-    return { success: false, error: "Vous devez être connecté pour déclarer une collecte." };
-  }
-
-  const file = formData.get("photo") as File | null;
-  let imageUrl = "";
-
-  if (file && file.size > 0) {
-    const uploadResult = await saveUploadedFile(file);
-    if (uploadResult.error || !uploadResult.url) {
-      return { success: false, error: uploadResult.error || "Erreur lors du téléchargement de l'image." };
+  try {
+    const session = await requireAuth();
+    if (!session) {
+      return { success: false, error: "Vous devez être connecté pour déclarer une collecte." };
     }
-    imageUrl = uploadResult.url;
-  }
 
-  const classificationId = formData.get("classificationId") as string | null;
-  const rawData = {
-    collectionPointId: formData.get("collectionPointId"),
-    categoryId: formData.get("categoryId"),
-    classificationId: classificationId || undefined,
-    quantityKg: formData.get("quantityKg") || undefined,
-    estimatedQuantity: formData.get("estimatedQuantity") === "true",
-    notes: formData.get("notes") || undefined,
-  };
+    const file = formData.get("photo") as File | null;
+    let imageUrl = "";
 
-  const parsed = submissionSchema.safeParse(rawData);
-  if (!parsed.success) {
+    if (file && file.size > 0) {
+      const uploadResult = await saveUploadedFile(file);
+      if (uploadResult.error || !uploadResult.url) {
+        return { success: false, error: uploadResult.error || "Erreur lors du téléchargement de l'image." };
+      }
+      imageUrl = uploadResult.url;
+    }
+
+    const classificationId = formData.get("classificationId") as string | null;
+    const rawData = {
+      collectionPointId: formData.get("collectionPointId"),
+      categoryId: formData.get("categoryId"),
+      classificationId: classificationId || undefined,
+      quantityKg: formData.get("quantityKg") || undefined,
+      estimatedQuantity: formData.get("estimatedQuantity") === "true",
+      notes: formData.get("notes") || undefined,
+    };
+
+    const parsed = submissionSchema.safeParse(rawData);
+    if (!parsed.success) {
+      return {
+        success: false,
+        error: "Veuillez vérifier les informations saisies.",
+        fieldErrors: parsed.error.flatten().fieldErrors,
+      };
+    }
+
+    const submission = await prisma.collectionSubmission.create({
+      data: {
+        citizenId: session.userId,
+        collectionPointId: parsed.data.collectionPointId,
+        categoryId: parsed.data.categoryId,
+        classificationId: parsed.data.classificationId || null,
+        quantityKg: parsed.data.quantityKg || null,
+        estimatedQuantity: parsed.data.estimatedQuantity,
+        notes: parsed.data.notes || null,
+        imageUrls: JSON.stringify(imageUrl ? [imageUrl] : []),
+        status: "PENDING",
+      },
+    });
+
+    await prisma.auditLog.create({
+      data: {
+        userId: session.userId,
+        action: "SUBMIT_COLLECTION",
+        entity: "CollectionSubmission",
+        entityId: submission.id,
+        details: `Déclaration de collecte soumise pour la catégorie ${parsed.data.categoryId}`,
+      },
+    });
+
+    revalidatePath("/citoyen");
+    revalidatePath("/citoyen/operations");
+
+    return { success: true, data: { submissionId: submission.id } };
+  } catch (err: any) {
+    console.error("Error in submitCollectionAction:", err);
     return {
       success: false,
-      error: "Veuillez vérifier les informations saisies.",
-      fieldErrors: parsed.error.flatten().fieldErrors,
+      error: err?.message || "Une erreur inattendue est survenue lors de l'enregistrement.",
     };
   }
-
-  const submission = await prisma.collectionSubmission.create({
-    data: {
-      citizenId: session.userId,
-      collectionPointId: parsed.data.collectionPointId,
-      categoryId: parsed.data.categoryId,
-      classificationId: parsed.data.classificationId || null,
-      quantityKg: parsed.data.quantityKg || null,
-      estimatedQuantity: parsed.data.estimatedQuantity,
-      notes: parsed.data.notes || null,
-      imageUrls: JSON.stringify(imageUrl ? [imageUrl] : []),
-      status: "PENDING",
-    },
-  });
-
-  await prisma.auditLog.create({
-    data: {
-      userId: session.userId,
-      action: "SUBMIT_COLLECTION",
-      entity: "CollectionSubmission",
-      entityId: submission.id,
-      details: `Déclaration de collecte soumise pour la catégorie ${parsed.data.categoryId}`,
-    },
-  });
-
-  revalidatePath("/citoyen");
-  revalidatePath("/citoyen/operations");
-
-  return { success: true, data: { submissionId: submission.id } };
 }
 
 const profileSchema = z.object({

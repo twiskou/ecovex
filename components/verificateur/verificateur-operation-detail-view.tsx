@@ -128,6 +128,7 @@ export function VerificateurOperationDetailView({
                       src={imageUrls[0]}
                       alt={lang === "ar" ? "صورة الإثبات" : "Photo de preuve"}
                       fill
+                      unoptimized
                       className="object-contain bg-black/5"
                     />
                   </div>

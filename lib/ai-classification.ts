@@ -76,8 +76,8 @@ Réponds STRICTEMENT sous forme d'un objet JSON valide (SANS code block markdown
     },
   };
 
-  // Try Gemini models in order of availability
-  const models = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"];
+  // Try Gemini models in order of availability and speed
+  const models = ["gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-3.8-flash"];
 
   for (const model of models) {
     try {
@@ -86,7 +86,7 @@ Réponds STRICTEMENT sous forme d'un objet JSON valide (SANS code block markdown
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-        signal: AbortSignal.timeout(15000),
+        signal: AbortSignal.timeout(6000),
       });
 
       if (!response.ok) {
@@ -172,28 +172,50 @@ export async function classifyWasteImage(
   let isAiPowered = false;
 
   try {
-    const relativePath = imageUrl.startsWith("/") ? imageUrl.slice(1) : imageUrl;
-    const fullPath = path.join(process.cwd(), "public", relativePath);
+    if (imageUrl.startsWith("data:")) {
+      // Decode Base64 Data URL (used on Vercel and serverless)
+      const commaIdx = imageUrl.indexOf(",");
+      if (commaIdx !== -1) {
+        const header = imageUrl.slice(0, commaIdx);
+        const base64Data = imageUrl.slice(commaIdx + 1);
+        const mimeMatch = header.match(/data:([^;]+)/);
+        const mimeType = mimeMatch ? mimeMatch[1] : "image/jpeg";
+        const imageBuffer = Buffer.from(base64Data, "base64");
 
-    if (fs.existsSync(fullPath)) {
-      const imageBuffer = await fs.promises.readFile(fullPath);
-      const ext = path.extname(fullPath).toLowerCase();
-      const mimeType =
-        ext === ".png"
-          ? "image/png"
-          : ext === ".webp"
-          ? "image/webp"
-          : ext === ".avif"
-          ? "image/avif"
-          : "image/jpeg";
+        if (GEMINI_API_KEY) {
+          geminiResult = await callGeminiVision(imageBuffer, mimeType, categoriesList);
+          if (geminiResult) {
+            isAiPowered = true;
+          }
+        }
+      }
+    } else {
+      // Local file on disk fallback
+      const relativePath = imageUrl.startsWith("/") ? imageUrl.slice(1) : imageUrl;
+      const fullPath = path.join(process.cwd(), "public", relativePath);
 
-      geminiResult = await callGeminiVision(imageBuffer, mimeType, categoriesList);
-      if (geminiResult) {
-        isAiPowered = true;
+      if (fs.existsSync(fullPath)) {
+        const imageBuffer = await fs.promises.readFile(fullPath);
+        const ext = path.extname(fullPath).toLowerCase();
+        const mimeType =
+          ext === ".png"
+            ? "image/png"
+            : ext === ".webp"
+            ? "image/webp"
+            : ext === ".avif"
+            ? "image/avif"
+            : "image/jpeg";
+
+        if (GEMINI_API_KEY) {
+          geminiResult = await callGeminiVision(imageBuffer, mimeType, categoriesList);
+          if (geminiResult) {
+            isAiPowered = true;
+          }
+        }
       }
     }
   } catch (err) {
-    console.warn("Could not read uploaded image for Gemini Vision:", err);
+    console.warn("Could not process image for Gemini Vision:", err);
   }
 
   let matchedCategory = null;
@@ -238,7 +260,7 @@ export async function classifyWasteImage(
   const status = isUncertain ? "UNCERTAIN" : "COMPLETED";
 
   const rawResult = JSON.stringify({
-    model: isAiPowered ? "gemini-1.5-flash" : "ecovex-vision-heuristic",
+    model: isAiPowered ? "gemini-3.5-flash" : "ecovex-vision-heuristic",
     engine: "Google Gemini Vision AI",
     confidence,
     status,

@@ -192,6 +192,7 @@ export function CitoyenOperationDetailView({ submission }: CitoyenOperationDetai
                   src={parsedImages[0]}
                   alt={lang === "ar" ? "إثبات التجميع" : "Preuve du dépôt"}
                   fill
+                  unoptimized
                   className="object-contain bg-black/5"
                 />
               </div>

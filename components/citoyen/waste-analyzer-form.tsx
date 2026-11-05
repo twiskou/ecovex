@@ -18,6 +18,7 @@ import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import { getCategoryLocalized } from "@/lib/collection-points-i18n";
 import { Sparkles, CheckCircle2 } from "lucide-react";
+import { compressImage } from "@/lib/image-utils";
 
 export function WasteAnalyzerForm() {
   const { lang, t } = useLang();
@@ -38,11 +39,11 @@ export function WasteAnalyzerForm() {
     isAiPowered?: boolean;
   } | null>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0];
     if (selected) {
-      if (selected.size > 5 * 1024 * 1024) {
-        toast.error(lang === "ar" ? "حجم الصورة كبير جداً (الأقصى 5 ميغابايت)" : "L'image est trop volumineuse (maximum 5 Mo).");
+      if (selected.size > 10 * 1024 * 1024) {
+        toast.error(lang === "ar" ? "حجم الصورة كبير جداً (الأقصى 10 ميغابايت)" : "L'image est trop volumineuse (maximum 10 Mo).");
         return;
       }
       setFile(selected);
@@ -58,18 +59,27 @@ export function WasteAnalyzerForm() {
     }
 
     setLoading(true);
-    const formData = new FormData();
-    formData.append("photo", file);
 
-    const res = await classifyWastePhotoAction(formData);
+    try {
+      // Compress client-side to ensure fast upload and avoid Vercel body limits
+      const compressedFile = await compressImage(file);
+      const formData = new FormData();
+      formData.append("photo", compressedFile);
 
-    if (res.success && res.data) {
-      setResult(res.data);
-      toast.success(lang === "ar" ? "تم التحليل بنجاح!" : "Analyse terminée !");
-    } else {
-      toast.error(res.error || (lang === "ar" ? "حدث خطأ أثناء التحليل." : "Une erreur est survenue lors de l'analyse."));
+      const res = await classifyWastePhotoAction(formData);
+
+      if (res.success && res.data) {
+        setResult(res.data);
+        toast.success(lang === "ar" ? "تم التحليل بنجاح!" : "Analyse terminée !");
+      } else {
+        toast.error(res.error || (lang === "ar" ? "حدث خطأ أثناء التحليل." : "Une erreur est survenue lors de l'analyse."));
+      }
+    } catch (err: any) {
+      console.error("Analysis client error:", err);
+      toast.error(lang === "ar" ? "تعذر إكمال التحليل. يرجى المحاولة مرة أخرى." : "Impossible de terminer l'analyse. Veuillez réessayer.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -94,6 +104,7 @@ export function WasteAnalyzerForm() {
                     src={preview}
                     alt={lang === "ar" ? "معاينة النفاية" : "Aperçu du déchet"}
                     fill
+                    unoptimized
                     className="object-cover"
                   />
                 </div>

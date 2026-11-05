@@ -99,6 +99,7 @@ export function CitoyenResultatAnalyseView({
               src={classification.imageUrl}
               alt={lang === "ar" ? "الصورة المحللة" : "Photo analysée"}
               fill
+              unoptimized
               className="object-contain bg-black/5"
             />
           </div>

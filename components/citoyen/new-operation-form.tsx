@@ -20,6 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { toast } from "sonner";
 import { useLang } from "@/lib/i18n";
+import { compressImage } from "@/lib/image-utils";
 
 interface NewOperationFormProps {
   categories: { id: string; name: string; pointValue: number }[];
@@ -59,24 +60,32 @@ export function NewOperationForm({
     e.preventDefault();
     setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-    if (photo) {
-      formData.set("photo", photo);
-    }
-    if (classificationId) {
-      formData.set("classificationId", classificationId);
-    }
-    formData.set("estimatedQuantity", isEstimated ? "true" : "false");
+    try {
+      const formData = new FormData(e.currentTarget);
+      if (photo) {
+        // Compress client-side to ensure fast transmission and fit within Vercel limits
+        const compressed = await compressImage(photo);
+        formData.set("photo", compressed);
+      }
+      if (classificationId) {
+        formData.set("classificationId", classificationId);
+      }
+      formData.set("estimatedQuantity", isEstimated ? "true" : "false");
 
-    const result = await submitCollectionAction(formData);
+      const result = await submitCollectionAction(formData);
 
-    if (result.success && result.data) {
-      toast.success(lang === "ar" ? "تم إرسال تصريح التجميع بنجاح!" : "Déclaration de collecte soumise avec succès !");
-      router.push(`/citoyen/operations/${result.data.submissionId}`);
-    } else {
-      toast.error(result.error || (lang === "ar" ? "خطأ أثناء إرسال التصريح" : "Erreur lors de la soumission"));
+      if (result.success && result.data) {
+        toast.success(lang === "ar" ? "تم إرسال تصريح التجميع بنجاح!" : "Déclaration de collecte soumise avec succès !");
+        router.push(`/citoyen/operations/${result.data.submissionId}`);
+      } else {
+        toast.error(result.error || (lang === "ar" ? "خطأ أثناء إرسال التصريح" : "Erreur lors de la soumission"));
+      }
+    } catch (err: any) {
+      console.error("Submission error:", err);
+      toast.error(lang === "ar" ? "تعذر إرسال التصريح. يرجى المحاولة لاحقاً." : "Impossible d'envoyer la déclaration. Veuillez réessayer.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -197,7 +206,7 @@ export function NewOperationForm({
               {preview ? (
                 <div className="flex flex-col items-center">
                   <div className="relative w-40 h-32 rounded-lg overflow-hidden border border-border">
-                    <Image src={preview} alt="Preuve" fill className="object-cover" />
+                    <Image src={preview} alt="Preuve" fill unoptimized className="object-cover" />
                   </div>
                   <label className="mt-2 cursor-pointer text-xs font-semibold text-primary hover:underline">
                     {lang === "ar" ? "استبدال الصورة" : "Remplacer la photo"}
