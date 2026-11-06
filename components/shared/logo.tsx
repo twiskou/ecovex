@@ -13,23 +13,23 @@ interface LogoProps {
 
 const SIZE_CONFIGS = {
   sm: {
-    width: 108,
-    height: 36,
+    width: 134,
+    height: 35,
     className: "h-7 sm:h-8 w-auto",
   },
   default: {
-    width: 132,
-    height: 44,
+    width: 153,
+    height: 40,
     className: "h-8 sm:h-9 md:h-10 w-auto",
   },
   lg: {
-    width: 165,
-    height: 55,
+    width: 191,
+    height: 50,
     className: "h-10 sm:h-11 md:h-12 w-auto",
   },
   xl: {
-    width: 210,
-    height: 70,
+    width: 230,
+    height: 60,
     className: "h-12 sm:h-14 md:h-16 w-auto",
   },
 };
@@ -52,6 +52,7 @@ export function Logo({
       aria-label="ECOVEX - Plateforme de tri et recyclage écologique"
     >
       <div className="relative flex items-center justify-center shrink-0">
+        {/* Light mode logo (with dark typography) */}
         <Image
           src="/logo.png"
           alt="ECOVEX"
@@ -59,7 +60,19 @@ export function Logo({
           height={config.height}
           priority
           className={cn(
-            "object-contain transition-transform duration-200 group-hover:scale-[1.02] dark:brightness-125 dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.25)]",
+            "object-contain transition-transform duration-200 group-hover:scale-[1.02] block dark:hidden",
+            config.className
+          )}
+        />
+        {/* Dark mode logo (with bright cream typography and glowing leaf) */}
+        <Image
+          src="/logo-dark.png"
+          alt="ECOVEX"
+          width={config.width}
+          height={config.height}
+          priority
+          className={cn(
+            "object-contain transition-transform duration-200 group-hover:scale-[1.02] hidden dark:block",
             config.className
           )}
         />
