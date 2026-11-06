@@ -46,7 +46,7 @@ const AlgeriaCollectionMap = dynamic(
   }
 );
 
-interface PointWithCategories extends MapPoint {}
+type PointWithCategories = MapPoint;
 
 interface CollectionPointsViewProps {
   points: PointWithCategories[];

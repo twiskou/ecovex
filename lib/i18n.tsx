@@ -846,10 +846,8 @@ export function useLang() {
 
 export function LangProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>("fr");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const saved = localStorage.getItem("ecovex_lang") as Lang | null;
     if (saved === "ar" || saved === "fr") {
       setLangState(saved);

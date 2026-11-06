@@ -30,8 +30,8 @@ export default function CitoyenError({ error, reset }: CitoyenErrorProps) {
           Une erreur est survenue
         </h2>
         <p className="text-sm text-muted-foreground max-w-sm">
-          Le tableau de bord n'a pas pu charger les données. Cela peut arriver
-          lors d'un redémarrage du serveur.
+          Le tableau de bord n&apos;a pas pu charger les données. Cela peut arriver
+          lors d&apos;un redémarrage du serveur.
         </p>
       </div>
 

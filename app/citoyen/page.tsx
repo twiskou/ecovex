@@ -7,9 +7,16 @@ export default async function CitoyenDashboardPage() {
   const session = await requireAuth();
   if (!session) redirect("/connexion");
 
+  let user = null;
+  let submissions: any[] = [];
+  let recentTransactions: any[] = [];
+  let totalPoints = 0;
+  let pendingCount = 0;
+  let approvedCount = 0;
+
   try {
     // Fetch real user data — wrapped in try/catch to prevent unhandled rejections
-    const [user, submissions, recentTransactions] = await Promise.all([
+    const [userData, subs, txs] = await Promise.all([
       prisma.user.findUnique({
         where: { id: session.userId },
         include: { profile: true },
@@ -30,8 +37,12 @@ export default async function CitoyenDashboardPage() {
       }),
     ]);
 
-    const totalPoints = user?.profile?.totalPoints ?? 0;
-    const [pendingCount, approvedCount] = await Promise.all([
+    user = userData;
+    submissions = subs;
+    recentTransactions = txs;
+    totalPoints = user?.profile?.totalPoints ?? 0;
+
+    const [pending, approved] = await Promise.all([
       prisma.collectionSubmission.count({
         where: { citizenId: session.userId, status: "PENDING" },
       }),
@@ -40,28 +51,21 @@ export default async function CitoyenDashboardPage() {
       }),
     ]);
 
-    return (
-      <CitoyenDashboardView
-        user={user}
-        submissions={submissions}
-        recentTransactions={recentTransactions}
-        totalPoints={totalPoints}
-        pendingCount={pendingCount}
-        approvedCount={approvedCount}
-      />
-    );
+    pendingCount = pending;
+    approvedCount = approved;
   } catch (error) {
     // On DB error (cold start, timeout, etc.), render dashboard with empty data
     console.error("[CitoyenDashboard] DB fetch error:", error);
-    return (
-      <CitoyenDashboardView
-        user={null}
-        submissions={[]}
-        recentTransactions={[]}
-        totalPoints={0}
-        pendingCount={0}
-        approvedCount={0}
-      />
-    );
   }
+
+  return (
+    <CitoyenDashboardView
+      user={user}
+      submissions={submissions}
+      recentTransactions={recentTransactions}
+      totalPoints={totalPoints}
+      pendingCount={pendingCount}
+      approvedCount={approvedCount}
+    />
+  );
 }
