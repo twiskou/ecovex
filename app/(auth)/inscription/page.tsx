@@ -87,7 +87,9 @@ export default function InscriptionPage() {
         <div className="flex justify-center mb-2">
           <Logo size="lg" />
         </div>
-        <CardTitle className="text-xl mt-2">{t.auth.registerTitle}</CardTitle>
+        <CardTitle className="text-xl mt-2 font-bold">
+          {t.auth.registerTitle} <span className="text-eco-orange">ECOVEX</span>
+        </CardTitle>
         <CardDescription>
           {t.auth.registerSub}
         </CardDescription>
@@ -305,7 +307,7 @@ export default function InscriptionPage() {
           {t.auth.alreadyAccount}{" "}
           <Link
             href="/connexion"
-            className="font-medium text-primary hover:underline"
+            className="font-semibold text-eco-orange hover:underline"
           >
             {t.auth.signIn}
           </Link>

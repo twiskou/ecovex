@@ -12,9 +12,9 @@ export function TermsView() {
       <div className="py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-4">قانوني</Badge>
+            <Badge variant="outline" className="mb-4 border-eco-orange/30 text-eco-orange">قانوني</Badge>
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl flex items-center justify-center gap-3">
-              <FileText size={32} className="text-primary" />
+              <FileText size={32} className="text-eco-orange" />
               شروط الاستخدام والأحكام العامة
             </h1>
             <p className="mt-4 text-muted-foreground">آخر تحديث: أكتوبر 2026</p>
@@ -56,7 +56,7 @@ export function TermsView() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">5. نظام النقاط والمكافآت</h2>
+              <h2 className="text-xl font-bold text-eco-orange mb-3">5. نظام النقاط والمكافآت</h2>
               <p>
                 تُمنح النقاط البيئية كأداة تحفيزية لتشجيع السلوكيات الصديقة للبيئة، وتحتفظ إدارة المنصة بحق تعديل معايير احتسابها وقواعد توزيعها عند الحاجة.
               </p>
@@ -88,9 +88,9 @@ export function TermsView() {
     <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <Badge variant="outline" className="mb-4">Légal</Badge>
+          <Badge variant="outline" className="mb-4 border-eco-orange/30 text-eco-orange">Légal</Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl flex items-center justify-center gap-3">
-            <FileText size={32} className="text-primary" />
+            <FileText size={32} className="text-eco-orange" />
             Conditions d&apos;utilisation
           </h1>
           <p className="mt-4 text-muted-foreground">Dernière mise à jour : octobre 2026</p>
@@ -135,7 +135,7 @@ export function TermsView() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-foreground mb-3">5. Système de points</h2>
+            <h2 className="text-xl font-bold text-eco-orange mb-3">5. Système de points &amp; récompenses</h2>
             <p>
               Les points écologiques sont attribués à titre indicatif pour récompenser les
               comportements écologiques. Ils ne constituent pas une monnaie et n&apos;ont pas

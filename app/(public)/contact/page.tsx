@@ -45,11 +45,12 @@ export default function ContactPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-4">
+          <Badge variant="outline" className="mb-4 border-eco-orange/30 text-eco-orange">
             {t.contact.badge}
           </Badge>
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            {t.contact.title}
+            {t.contact.title}{" "}
+            <span className="text-eco-orange">ECOVEX</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
             {t.contact.sub}
@@ -59,21 +60,28 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
           {/* Contact info */}
           <div className="space-y-6">
-            {contactItems.map((item) => (
-              <div key={item.title} className="flex gap-4">
-                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 shrink-0">
-                  <item.icon size={18} className="text-primary" />
+            {contactItems.map((item, idx) => {
+              const isSupport = idx === 1;
+              return (
+                <div key={item.title} className="flex gap-4">
+                  <div
+                    className={`flex items-center justify-center w-10 h-10 rounded-lg shrink-0 ${
+                      isSupport ? "bg-eco-orange/15 text-eco-orange" : "bg-primary/10 text-primary"
+                    }`}
+                  >
+                    <item.icon size={18} />
+                  </div>
+                  <div className="text-start">
+                    <p className={`text-sm ${isSupport ? "font-bold text-eco-orange" : "font-medium text-foreground"}`}>
+                      {item.title}
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-0.5">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-start">
-                  <p className="font-medium text-foreground text-sm">
-                    {item.title}
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-0.5">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Contact form */}

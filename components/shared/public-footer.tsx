@@ -102,8 +102,8 @@ export function PublicFooter() {
             &copy; {year} ECOVEX. {t.footer.rights}
           </p>
           <p className="text-xs text-muted-foreground flex items-center gap-1.5">
-            <Leaf size={12} className="text-primary" />
-            {t.footer.sustainable}
+            <Leaf size={12} className="text-eco-orange" />
+            <span className="text-eco-orange font-medium">{t.footer.sustainable}</span>
           </p>
         </div>
       </div>

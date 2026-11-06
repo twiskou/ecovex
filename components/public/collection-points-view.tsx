@@ -97,14 +97,21 @@ export function CollectionPointsView({ points }: CollectionPointsViewProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto">
-          <Badge variant="outline" className="mb-4 gap-1.5">
-            <Compass size={13} className="text-primary" />
+          <Badge variant="outline" className="mb-4 gap-1.5 border-eco-orange/30 text-eco-orange">
+            <Compass size={13} className="text-eco-orange" />
             {lang === "ar" ? "الشبكة الوطنية للفرز" : t.collectionPointsPage.badge}
           </Badge>
           <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-            {lang === "ar"
-              ? "مراكز ونقاط التجميع في الجزائر"
-              : t.collectionPointsPage.title}
+            {lang === "ar" ? (
+              <>
+                مراكز ونقاط التجميع في <span className="text-eco-orange">الجزائر</span>
+              </>
+            ) : (
+              <>
+                {t.collectionPointsPage.title}{" "}
+                <span className="text-eco-orange">en Algérie</span>
+              </>
+            )}
           </h1>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
             {lang === "ar"
@@ -128,7 +135,7 @@ export function CollectionPointsView({ points }: CollectionPointsViewProps) {
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-primary/10 text-primary border border-primary/20">
+              <span className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-eco-orange/15 text-eco-orange border border-eco-orange/30">
                 {points.length} {lang === "ar" ? "نقطة تجميع مسجلة" : "points de collecte"}
               </span>
             </div>
@@ -232,7 +239,7 @@ export function CollectionPointsView({ points }: CollectionPointsViewProps) {
                             <MapPin size={20} />
                           </div>
                           <div>
-                            <span className="text-[11px] font-bold text-primary uppercase tracking-wide">
+                            <span className="text-[11px] font-bold text-eco-orange uppercase tracking-wide">
                               {loc.city}
                             </span>
                             <CardTitle className="text-base font-bold text-foreground leading-snug line-clamp-1">

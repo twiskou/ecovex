@@ -31,11 +31,12 @@ export function AboutView() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-4">
+          <Badge variant="outline" className="mb-4 border-eco-orange/30 text-eco-orange">
             {t.about.badge}
           </Badge>
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            {t.about.title}
+            {t.about.title}{" "}
+            <span className="text-eco-orange">{lang === "ar" ? "المستدامة" : "durable"}</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
             {t.about.sub}
@@ -56,7 +57,7 @@ export function AboutView() {
             <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
 
             {/* Floating glass badge inside image */}
-            <div className="absolute bottom-6 start-6 end-6 sm:end-auto flex items-center gap-3 bg-background/90 backdrop-blur-md px-5 py-3 rounded-2xl border border-primary/20 shadow-lg text-xs font-semibold text-foreground">
+            <div className="absolute bottom-6 start-6 end-6 sm:end-auto flex items-center gap-3 bg-card/95 backdrop-blur-md px-5 py-3 rounded-2xl border border-border/80 shadow-lg text-xs font-semibold text-foreground">
               <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
                 <Leaf size={20} />
               </div>
@@ -64,7 +65,7 @@ export function AboutView() {
                 <p className="font-bold text-foreground text-sm">
                   {lang === "ar" ? "تكنولوجيا متطورة لبيئة مستدامة" : "La technologie au service de la planète"}
                 </p>
-                <p className="text-xs text-muted-foreground font-normal">
+                <p className="text-xs text-eco-orange font-medium">
                   {lang === "ar" ? "مجتمع فاعل، ذكاء اصطناعي ونقاط بيئية محفزة" : "Communauté engagée, IA & valorisation citoyenne"}
                 </p>
               </div>
@@ -74,22 +75,31 @@ export function AboutView() {
 
         {/* Mission / Vision / Values */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 mb-20">
-          {cards.map((item) => (
-            <div
-              key={item.title}
-              className="flex flex-col items-center text-center p-6 rounded-2xl border border-border bg-card"
-            >
-              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-4">
-                <item.icon size={24} className="text-primary" />
+          {cards.map((item, idx) => {
+            const isVision = idx === 1;
+            return (
+              <div
+                key={item.title}
+                className={`flex flex-col items-center text-center p-6 rounded-2xl border bg-card ${
+                  isVision ? "border-eco-orange/30 shadow-xs" : "border-border"
+                }`}
+              >
+                <div
+                  className={`flex items-center justify-center w-12 h-12 rounded-xl mb-4 ${
+                    isVision ? "bg-eco-orange/15 text-eco-orange" : "bg-primary/10 text-primary"
+                  }`}
+                >
+                  <item.icon size={24} />
+                </div>
+                <h2 className={`text-lg font-semibold mb-3 ${isVision ? "text-eco-orange font-bold" : "text-foreground"}`}>
+                  {item.title}
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {item.description}
+                </p>
               </div>
-              <h2 className="text-lg font-semibold text-foreground mb-3">
-                {item.title}
-              </h2>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {item.description}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Concept */}

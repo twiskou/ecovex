@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useLang } from "@/lib/i18n";
+import { cn } from "cn";
 import { PWADownloadSection } from "@/components/public/pwa-download-section";
 
 interface HomeViewProps {
@@ -57,9 +58,9 @@ export function HomeView({ statsData }: HomeViewProps) {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <Badge variant="eco" className="mb-6 gap-1.5 shadow-xs">
-              <Leaf size={12} className="text-primary" />
-              {t.home.badge}
+            <Badge variant="eco" className="mb-6 gap-1.5 shadow-xs border-eco-orange/30">
+              <Leaf size={12} className="text-eco-orange" />
+              <span className="text-eco-orange font-semibold">{t.home.badge}</span>
             </Badge>
 
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl leading-tight">
@@ -139,11 +140,11 @@ export function HomeView({ statsData }: HomeViewProps) {
 
               {/* Floating Pro Badge 2 - Right / End */}
               <div className="hidden sm:flex absolute -top-4 end-2 sm:end-6 items-center gap-3 bg-card/95 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-border/80 shadow-xl text-xs font-semibold text-foreground">
-                <div className="w-9 h-9 rounded-xl bg-[#E99A45]/15 text-[#B86815] dark:text-[#E99A45] flex items-center justify-center shrink-0">
+                <div className="w-9 h-9 rounded-xl bg-eco-orange/15 text-eco-orange flex items-center justify-center shrink-0">
                   <Star size={18} />
                 </div>
                 <div className="text-start">
-                  <p className="font-bold text-primary">
+                  <p className="font-bold text-eco-orange">
                     {lang === "ar" ? "+50 نقطة لكل عملية" : "+50 pts par dépôt"}
                   </p>
                   <p className="text-[11px] text-muted-foreground font-normal">
@@ -162,18 +163,18 @@ export function HomeView({ statsData }: HomeViewProps) {
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {[
               { label: t.home.statOps, value: statsData.operations, icon: ClipboardCheck },
-              { label: t.home.statPoints, value: statsData.points, icon: Star },
+              { label: t.home.statPoints, value: statsData.points, icon: Star, isHighlight: true },
               { label: t.home.statPointsCollecte, value: statsData.pointsCollecte, icon: MapPin },
               { label: t.home.statCitizens, value: statsData.citoyens, icon: Users },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <div className="flex justify-center mb-2">
-                  <stat.icon size={24} className="text-primary" />
+                  <stat.icon size={24} className={stat.isHighlight ? "text-eco-orange" : "text-primary"} />
                 </div>
-                <div className="text-2xl font-bold text-foreground">
+                <div className={cn("text-2xl font-bold", stat.isHighlight ? "text-eco-orange" : "text-foreground")}>
                   {stat.value}
                 </div>
-                <div className="text-sm text-muted-foreground mt-1">
+                <div className={cn("text-sm mt-1", stat.isHighlight ? "text-eco-orange/90 font-medium" : "text-muted-foreground")}>
                   {stat.label}
                 </div>
               </div>
@@ -189,7 +190,7 @@ export function HomeView({ statsData }: HomeViewProps) {
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <Badge variant="outline" className="mb-4">
+            <Badge variant="outline" className="mb-4 border-eco-orange/30 text-eco-orange">
               {t.home.featBadge}
             </Badge>
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -203,16 +204,29 @@ export function HomeView({ statsData }: HomeViewProps) {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {t.home.features.map((feature, idx) => {
               const Icon = featureIcons[idx] ?? Recycle;
+              const isHighlight = Icon === Star;
               return (
                 <Card
                   key={feature.title}
-                  className="group hover:ring-primary/30 transition-all duration-200"
+                  className={cn(
+                    "group hover:ring-primary/30 transition-all duration-200",
+                    isHighlight && "hover:ring-eco-orange/40 border-eco-orange/30"
+                  )}
                 >
                   <CardHeader>
-                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 mb-2 group-hover:bg-primary/20 transition-colors">
-                      <Icon size={20} className="text-primary" />
+                    <div
+                      className={cn(
+                        "flex items-center justify-center w-10 h-10 rounded-lg mb-2 transition-colors",
+                        isHighlight
+                          ? "bg-eco-orange/15 text-eco-orange group-hover:bg-eco-orange/25"
+                          : "bg-primary/10 group-hover:bg-primary/20 text-primary"
+                      )}
+                    >
+                      <Icon size={20} />
                     </div>
-                    <CardTitle>{feature.title}</CardTitle>
+                    <CardTitle className={cn(isHighlight && "text-eco-orange")}>
+                      {feature.title}
+                    </CardTitle>
                     <CardDescription>{feature.description}</CardDescription>
                   </CardHeader>
                 </Card>
@@ -221,7 +235,7 @@ export function HomeView({ statsData }: HomeViewProps) {
           </div>
 
           <div className="text-center mt-12">
-            <Button variant="outline" asChild className="gap-2">
+            <Button variant="outline" asChild className="gap-2 border-border/80 bg-card hover:bg-muted">
               <Link href="/fonctionnalites">
                 {t.home.seeAllFeatures}
                 <ArrowRight size={16} className="rtl:rotate-180" />
@@ -244,30 +258,40 @@ export function HomeView({ statsData }: HomeViewProps) {
           </div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-            {steps.map((item, index) => (
-              <div key={item.step} className="relative text-center">
-                {/* Connector line */}
-                {index < 3 && (
-                  <div
-                    aria-hidden="true"
-                    className="hidden md:block absolute top-5 ltr:left-[calc(50%+2rem)] rtl:right-[calc(50%+2rem)] w-[calc(100%-4rem)] h-px bg-border"
-                  />
-                )}
+            {steps.map((item, index) => {
+              const isReward = index === 3;
+              return (
+                <div key={item.step} className="relative text-center">
+                  {/* Connector line */}
+                  {index < 3 && (
+                    <div
+                      aria-hidden="true"
+                      className="hidden md:block absolute top-5 ltr:left-[calc(50%+2rem)] rtl:right-[calc(50%+2rem)] w-[calc(100%-4rem)] h-px bg-border"
+                    />
+                  )}
 
-                <div className="relative inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground text-sm font-bold mb-4">
-                  {item.step}
+                  <div
+                    className={cn(
+                      "relative inline-flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold mb-4 shadow-xs",
+                      isReward
+                        ? "bg-eco-orange text-white"
+                        : "bg-primary text-primary-foreground"
+                    )}
+                  >
+                    {item.step}
+                  </div>
+                  <div className="flex justify-center mb-3">
+                    <item.icon size={24} className={isReward ? "text-eco-orange" : "text-primary"} />
+                  </div>
+                  <h3 className={cn("font-semibold mb-2", isReward ? "text-eco-orange font-bold" : "text-foreground")}>
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {item.desc}
+                  </p>
                 </div>
-                <div className="flex justify-center mb-3">
-                  <item.icon size={24} className="text-primary" />
-                </div>
-                <h3 className="font-semibold text-foreground mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

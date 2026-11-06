@@ -64,7 +64,9 @@ export default function ConnexionPage() {
         <div className="flex justify-center mb-2">
           <Logo size="lg" />
         </div>
-        <CardTitle className="text-xl mt-2">{t.auth.loginTitle}</CardTitle>
+        <CardTitle className="text-xl mt-2 font-bold">
+          {t.auth.loginTitle} <span className="text-eco-orange">ECOVEX</span>
+        </CardTitle>
         <CardDescription>
           {t.auth.loginSub}
         </CardDescription>
@@ -171,7 +173,7 @@ export default function ConnexionPage() {
           {t.auth.noAccount}{" "}
           <Link
             href="/inscription"
-            className="font-medium text-primary hover:underline"
+            className="font-semibold text-eco-orange hover:underline"
           >
             {t.auth.createAccount}
           </Link>

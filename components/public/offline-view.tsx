@@ -5,7 +5,16 @@ import Link from "next/link";
 
 export function OfflineView() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-eco-50 to-background px-4 text-center">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-secondary/20 via-background to-background px-4 text-center">
+      <div className="mb-6 max-w-md">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-2">
+          Mode <span className="text-eco-orange">Hors-Ligne</span>
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Vous êtes actuellement déconnecté. Vos données locales restent disponibles.
+        </p>
+      </div>
+
       {/* Actions */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <button

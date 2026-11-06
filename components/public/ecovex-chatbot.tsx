@@ -159,24 +159,24 @@ export function EcovexChatbot() {
           className="mb-3 w-[92vw] sm:w-[400px] h-[540px] max-h-[80vh] rounded-3xl bg-background/95 backdrop-blur-xl border border-border shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300"
         >
           {/* Header */}
-          <div className="p-4 bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 text-white flex items-center justify-between shadow-sm">
+          <div className="p-4 bg-gradient-to-r from-primary via-[#535f37] to-[#263326] text-white flex items-center justify-between shadow-sm">
             <div className="flex items-center gap-3">
               <div className="relative w-10 h-10 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
                 <Bot size={22} />
-                <span className="absolute -bottom-0.5 -end-0.5 w-3 h-3 bg-emerald-400 border-2 border-emerald-700 rounded-full" />
+                <span className="absolute -bottom-0.5 -end-0.5 w-3 h-3 bg-eco-orange border-2 border-background rounded-full" />
               </div>
               <div className="text-start">
                 <div className="flex items-center gap-1.5">
                   <h3 className="font-bold text-sm tracking-tight leading-tight">
                     {lang === "ar" ? "المساعد الذكي إيكوفيكس" : "Assistant ECOVEX"}
                   </h3>
-                  <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-white/30 text-white bg-white/10">
-                    <Sparkles size={9} className="me-1 inline" />
+                  <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-eco-orange/50 text-white bg-eco-orange/25">
+                    <Sparkles size={9} className="me-1 inline text-eco-orange" />
                     Gemini AI
                   </Badge>
                 </div>
-                <p className="text-[11px] text-emerald-100 flex items-center gap-1 mt-0.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse" />
+                <p className="text-[11px] text-[#F2EBDD]/90 flex items-center gap-1 mt-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-eco-orange animate-pulse" />
                   {lang === "ar" ? "متصل الآن لخدمتك" : "En ligne • Prêt à vous aider"}
                 </p>
               </div>
@@ -307,7 +307,7 @@ export function EcovexChatbot() {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label={lang === "ar" ? "المساعد الذكي" : "Assistant virtuel"}
-        className="group relative flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 via-emerald-700 to-teal-800 text-white shadow-xl hover:shadow-emerald-500/30 hover:scale-105 active:scale-95 transition-all duration-300 border border-emerald-400/30"
+        className="group relative flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-primary via-[#535f37] to-[#263326] text-white shadow-xl hover:shadow-primary/30 hover:scale-105 active:scale-95 transition-all duration-300 border border-primary/30"
       >
         {isOpen ? (
           <ChevronDown size={24} className="transition-transform group-hover:translate-y-0.5" />
@@ -315,8 +315,8 @@ export function EcovexChatbot() {
           <>
             <MessageSquare size={24} />
             <span className="absolute -top-1 -end-1 flex h-3.5 w-3.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-400 border-2 border-background" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-eco-orange opacity-75" />
+              <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-eco-orange border-2 border-background" />
             </span>
           </>
         )}

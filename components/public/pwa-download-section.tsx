@@ -244,7 +244,8 @@ export function PWADownloadSection() {
 
           {/* Heading */}
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground leading-[1.15]">
-            {t.title1} <span className="text-primary">{t.titleHighlight}</span> {t.title2}
+            {t.title1} <span className="text-primary">{t.titleHighlight}</span>{" "}
+            <span className="text-eco-orange">{t.title2}</span>
           </h2>
 
           {/* Subtitle */}
@@ -421,12 +422,12 @@ export function PWADownloadSection() {
               </div>
 
               {/* Floating Pro Badge 3 - Bottom / Center: Mobile */}
-              <div className="absolute bottom-3 sm:bottom-4 ltr:left-4 sm:ltr:left-6 rtl:right-4 sm:rtl:right-6 flex items-center gap-2.5 bg-background/95 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl border border-primary/20 shadow-2xl text-xs font-semibold text-foreground">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center shrink-0">
+              <div className="absolute bottom-3 sm:bottom-4 ltr:left-4 sm:ltr:left-6 rtl:right-4 sm:rtl:right-6 flex items-center gap-2.5 bg-card/95 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl border border-border/80 shadow-2xl text-xs font-semibold text-foreground">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-eco-orange/15 text-eco-orange flex items-center justify-center shrink-0">
                   <Smartphone size={16} />
                 </div>
                 <div className="text-start">
-                  <p className="font-bold text-foreground text-[10px] sm:text-[11px] leading-tight">
+                  <p className="font-bold text-eco-orange text-[10px] sm:text-[11px] leading-tight">
                     {t.devicePills.phone}
                   </p>
                   <p className="text-[8px] sm:text-[9px] text-muted-foreground font-normal">
@@ -442,16 +443,23 @@ export function PWADownloadSection() {
         <div className="mt-14 sm:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {t.features.map((feature, idx) => {
             const Icon = feature.icon;
+            const isOrange = idx === 2; // Synchronisation instantanée
             return (
               <div
                 key={idx}
-                className="group relative p-5 rounded-2xl bg-card border border-border/70 hover:border-primary/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                className={`group relative p-5 rounded-2xl bg-card border transition-all duration-300 flex flex-col justify-between ${
+                  isOrange ? "border-eco-orange/30 shadow-xs hover:border-eco-orange" : "border-border/70 hover:border-primary/40 hover:shadow-lg"
+                }`}
               >
                 <div>
-                  <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary mb-3.5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+                  <div className={`flex items-center justify-center w-11 h-11 rounded-xl mb-3.5 transition-colors duration-300 ${
+                    isOrange
+                      ? "bg-eco-orange/15 text-eco-orange group-hover:bg-eco-orange group-hover:text-white"
+                      : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
+                  }`}>
                     <Icon size={20} />
                   </div>
-                  <h3 className="font-bold text-foreground text-sm leading-snug">
+                  <h3 className={`font-bold text-sm leading-snug ${isOrange ? "text-eco-orange" : "text-foreground"}`}>
                     {feature.title}
                   </h3>
                   <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">

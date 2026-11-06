@@ -157,11 +157,12 @@ export function FeaturesView() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-4">
+          <Badge variant="outline" className="mb-4 border-eco-orange/30 text-eco-orange">
             {t.home.featBadge}
           </Badge>
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            {t.home.featTitle}
+            {t.home.featTitle}{" "}
+            <span className="text-eco-orange">{lang === "ar" ? "الشاملة" : "intégrées"}</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
             {t.home.featSub}
@@ -182,19 +183,39 @@ export function FeaturesView() {
               </div>
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {group.features.map((feat) => (
-                  <Card key={feat.title} className="hover:ring-primary/20 transition-all text-start">
-                    <CardHeader>
-                      <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 mb-3 text-primary">
-                        <feat.icon size={20} />
-                      </div>
-                      <CardTitle className="text-base">{feat.title}</CardTitle>
-                      <CardDescription className="leading-relaxed">
-                        {feat.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                ))}
+                {group.features.map((feat) => {
+                  const isOrangeAccent = feat.icon === Star || feat.icon === Bell;
+                  return (
+                    <Card
+                      key={feat.title}
+                      className={`hover:ring-primary/20 transition-all text-start ${
+                        isOrangeAccent ? "border-eco-orange/30 bg-card" : ""
+                      }`}
+                    >
+                      <CardHeader>
+                        <div
+                          className={`flex items-center justify-center w-10 h-10 rounded-lg mb-3 ${
+                            isOrangeAccent
+                              ? "bg-eco-orange/15 text-eco-orange"
+                              : "bg-primary/10 text-primary"
+                          }`}
+                        >
+                          <feat.icon size={20} />
+                        </div>
+                        <CardTitle
+                          className={`text-base ${
+                            isOrangeAccent ? "text-eco-orange font-bold" : ""
+                          }`}
+                        >
+                          {feat.title}
+                        </CardTitle>
+                        <CardDescription className="leading-relaxed">
+                          {feat.description}
+                        </CardDescription>
+                      </CardHeader>
+                    </Card>
+                  );
+                })}
               </div>
             </div>
           ))}

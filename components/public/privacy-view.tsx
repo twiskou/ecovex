@@ -12,9 +12,9 @@ export function PrivacyView() {
       <div className="py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-4">قانوني</Badge>
+            <Badge variant="outline" className="mb-4 border-eco-orange/30 text-eco-orange">قانوني</Badge>
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl flex items-center justify-center gap-3">
-              <Shield size={32} className="text-primary" />
+              <Shield size={32} className="text-eco-orange" />
               سياسة الخصوصية وحماية البيانات
             </h1>
             <p className="mt-4 text-muted-foreground">آخر تحديث: أكتوبر 2026</p>
@@ -78,7 +78,7 @@ export function PrivacyView() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">6. الأمان والحماية</h2>
+              <h2 className="text-xl font-bold text-eco-orange mb-3">6. الأمان والحماية</h2>
               <p>
                 نطبق بروتوكولات حماية متقدمة تشمل التشفير الكامل، وملفات تعريف الارتباط المحمية ضد الاختراق، وتقييد الصلاحيات حسب الدور، وسجلات تتبع أمنية غير قابلة للتلاعب.
               </p>
@@ -93,9 +93,9 @@ export function PrivacyView() {
     <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <Badge variant="outline" className="mb-4">Légal</Badge>
+          <Badge variant="outline" className="mb-4 border-eco-orange/30 text-eco-orange">Légal</Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl flex items-center justify-center gap-3">
-            <Shield size={32} className="text-primary" />
+            <Shield size={32} className="text-eco-orange" />
             Politique de confidentialité
           </h1>
           <p className="mt-4 text-muted-foreground">Dernière mise à jour : octobre 2026</p>
@@ -164,7 +164,7 @@ export function PrivacyView() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-foreground mb-3">6. Sécurité</h2>
+            <h2 className="text-xl font-bold text-eco-orange mb-3">6. Sécurité</h2>
             <p>
               Nous mettons en œuvre des mesures de sécurité appropriées : hachage des mots de
               passe, cookies HttpOnly et Secure, contrôle d&apos;accès par rôle, journalisation

@@ -52,7 +52,7 @@ export function ImpactView() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-4">
+          <Badge variant="outline" className="mb-4 border-eco-orange/30 text-eco-orange">
             {t.impact.badge}
           </Badge>
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
@@ -65,27 +65,36 @@ export function ImpactView() {
 
         {/* Public stats */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-16">
-          {stats.map((stat) => (
-            <Card key={stat.label}>
-              <CardHeader className="text-start">
-                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 mb-2">
-                  <stat.icon size={20} className="text-primary" />
-                </div>
-                <CardTitle className="text-3xl font-bold">{stat.value}</CardTitle>
-                <CardDescription className="font-medium text-foreground/80 text-sm">
-                  {stat.label}
-                </CardDescription>
-                <CardDescription>{stat.description}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
+          {stats.map((stat, idx) => {
+            const isHighlight = idx === 1;
+            return (
+              <Card key={stat.label} className={isHighlight ? "border-eco-orange/30 bg-card shadow-xs" : ""}>
+                <CardHeader className="text-start">
+                  <div
+                    className={`flex items-center justify-center w-10 h-10 rounded-lg mb-2 ${
+                      isHighlight ? "bg-eco-orange/15 text-eco-orange" : "bg-primary/10 text-primary"
+                    }`}
+                  >
+                    <stat.icon size={20} />
+                  </div>
+                  <CardTitle className={`text-3xl font-bold ${isHighlight ? "text-eco-orange" : ""}`}>
+                    {stat.value}
+                  </CardTitle>
+                  <CardDescription className={`font-medium text-sm ${isHighlight ? "text-eco-orange/90 font-semibold" : "text-foreground/80"}`}>
+                    {stat.label}
+                  </CardDescription>
+                  <CardDescription>{stat.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            );
+          })}
         </div>
 
         {/* Notice */}
-        <div className="rounded-2xl border border-border bg-muted/30 p-8 text-center">
-          <TrendingUp size={32} className="text-primary mx-auto mb-4" />
+        <div className="rounded-2xl border border-border/80 bg-muted/30 p-8 text-center">
+          <TrendingUp size={32} className="text-eco-orange mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-foreground mb-3">
-            {t.impact.realTimeTitle}
+            <span className="text-eco-orange">{t.impact.realTimeTitle}</span>
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             {t.impact.realTimeDesc}
@@ -98,21 +107,28 @@ export function ImpactView() {
             {t.impact.whyTitle}
           </h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {reasons.map((item) => (
-              <div key={item.title} className="flex gap-4">
-                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 shrink-0">
-                  <item.icon size={20} className="text-primary" />
+            {reasons.map((item, idx) => {
+              const isAccent = idx === 1;
+              return (
+                <div key={item.title} className="flex gap-4">
+                  <div
+                    className={`flex items-center justify-center w-10 h-10 rounded-lg shrink-0 ${
+                      isAccent ? "bg-eco-orange/15 text-eco-orange" : "bg-primary/10 text-primary"
+                    }`}
+                  >
+                    <item.icon size={20} />
+                  </div>
+                  <div className="text-start">
+                    <h3 className={`font-semibold mb-1 ${isAccent ? "text-eco-orange font-bold" : "text-foreground"}`}>
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-start">
-                  <h3 className="font-semibold text-foreground mb-1">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

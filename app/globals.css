@@ -57,6 +57,7 @@
   --color-light-green: #C5D6A4;
   --color-light-green-dark: #AEC486;
   --color-orange-eco: #E99A45;
+  --color-eco-orange: #D87D24;
   --color-dark-green: #263326;
 }
 
@@ -215,3 +216,18 @@
   background: transparent !important;
   border: none !important;
 }
+
+/* Eco Orange text & border helpers for high-contrast accessibility */
+.text-eco-orange {
+  color: #D87D24;
+}
+.dark .text-eco-orange {
+  color: #E99A45;
+}
+.border-eco-orange {
+  border-color: #D87D24;
+}
+.dark .border-eco-orange {
+  border-color: #E99A45;
+}
+
