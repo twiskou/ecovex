@@ -32,7 +32,7 @@ export function VerificateurShell({ children, userEmail }: VerificateurShellProp
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/20">
+    <div className="min-h-screen flex flex-col bg-background">
       <DashboardHeader
         userEmail={userEmail}
         role="VERIFIER"
@@ -42,7 +42,7 @@ export function VerificateurShell({ children, userEmail }: VerificateurShellProp
 
       <div className="flex-1 flex">
         {/* Desktop Sidebar with logical border-e */}
-        <aside className="hidden lg:flex w-64 flex-col border-e border-border/60 bg-background/95 p-4 shrink-0">
+        <aside className="hidden lg:flex w-64 flex-col border-e border-border/70 bg-sidebar/95 p-4 shrink-0">
           <nav className="flex-1 space-y-1">
             {verifierNav.map((item) => {
               const active = pathname === item.href;

@@ -49,7 +49,7 @@ export function EmpreinteGoalsCard({ goal }: EmpreinteGoalsCardProps) {
   const isAchieved = goal?.isAchieved ?? false;
 
   return (
-    <Card className="text-start border-border/70 shadow-xs h-full flex flex-col justify-between">
+    <Card className="text-start border-border/70 shadow-xs h-full flex flex-col justify-between bg-card">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="space-y-1">
@@ -60,8 +60,8 @@ export function EmpreinteGoalsCard({ goal }: EmpreinteGoalsCardProps) {
             <CardDescription>{t.empreinte.goalsSub}</CardDescription>
           </div>
           {isAchieved && (
-            <Badge className="bg-emerald-600 hover:bg-emerald-600 gap-1 text-xs">
-              <Trophy size={13} />
+            <Badge variant="eco" className="gap-1 text-xs">
+              <Trophy size={13} className="text-primary" />
               {lang === "ar" ? "مكتمل" : "Atteint"}
             </Badge>
           )}

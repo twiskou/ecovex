@@ -49,7 +49,7 @@ export function CitoyenPointsView({ totalPoints, transactions }: CitoyenPointsVi
 
       {/* Points Summary Card */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <Card className="sm:col-span-2 bg-gradient-to-br from-primary/10 via-background to-background border-primary/20">
+        <Card className="sm:col-span-2 bg-gradient-to-br from-secondary/35 via-card to-card border-primary/25 shadow-xs">
           <CardHeader>
             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
               <Award size={18} className="text-primary" />
@@ -62,13 +62,13 @@ export function CitoyenPointsView({ totalPoints, transactions }: CitoyenPointsVi
               <span className="text-lg font-semibold text-muted-foreground">{t.common.points}</span>
             </div>
             <p className="text-xs text-muted-foreground mt-3 flex items-center gap-1.5">
-              <ShieldCheck size={14} className="text-emerald-600" />
+              <ShieldCheck size={14} className="text-primary" />
               {lang === "ar" ? "معتمد وموثق عبر عمليات تجميع حقيقية" : "Certifié par vérifications d'opérations réelles"}
             </p>
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col justify-between">
+        <Card className="flex flex-col justify-between bg-card border-border/70 shadow-xs">
           <CardHeader>
             <CardTitle className="text-sm font-medium text-muted-foreground">
               {lang === "ar" ? "إجمالي العمليات المكافأة" : "Total opérations récompensées"}
@@ -76,7 +76,7 @@ export function CitoyenPointsView({ totalPoints, transactions }: CitoyenPointsVi
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-extrabold text-foreground">{earnedCount}</div>
-            <Button asChild size="sm" className="w-full mt-4 gap-1.5 font-medium">
+            <Button asChild size="sm" className="w-full mt-4 gap-1.5 font-medium bg-primary text-primary-foreground hover:bg-primary/90 shadow-xs">
               <Link href="/citoyen/operations/nouvelle">
                 <PlusCircle size={15} />
                 {lang === "ar" ? "كسب المزيد من النقاط" : "Gagner plus de points"}
@@ -87,7 +87,7 @@ export function CitoyenPointsView({ totalPoints, transactions }: CitoyenPointsVi
       </div>
 
       {/* Transactions History */}
-      <Card>
+      <Card className="bg-card border-border/70 shadow-xs">
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
             <History size={18} className="text-primary" />

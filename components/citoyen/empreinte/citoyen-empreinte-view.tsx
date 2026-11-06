@@ -23,10 +23,10 @@ export function CitoyenEmpreinteView({ data }: CitoyenEmpreinteViewProps) {
   return (
     <div className="space-y-8 text-start">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-emerald-500/10 via-primary/5 to-background p-6 rounded-2xl border border-emerald-500/20 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-secondary/40 via-card to-card p-6 rounded-2xl border border-primary/25 shadow-xs">
         <div>
-          <Badge variant="outline" className="mb-2 text-xs font-semibold gap-1 text-emerald-700 dark:text-emerald-400 border-emerald-500/30">
-            <Leaf size={12} />
+          <Badge variant="eco" className="mb-2 text-xs font-semibold gap-1.5">
+            <Leaf size={12} className="text-primary" />
             {t.empreinte.badge}
           </Badge>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
@@ -38,13 +38,13 @@ export function CitoyenEmpreinteView({ data }: CitoyenEmpreinteViewProps) {
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
-          <Button asChild size="sm" className="gap-2 font-medium">
+          <Button asChild size="sm" className="gap-2 font-medium bg-primary text-primary-foreground hover:bg-primary/90 shadow-xs">
             <Link href="/citoyen/operations/nouvelle">
               <PlusCircle size={16} />
               {t.citoyen.newOp}
             </Link>
           </Button>
-          <Button asChild variant="outline" size="sm" className="gap-2 font-medium">
+          <Button asChild variant="outline" size="sm" className="gap-2 font-medium bg-card border-border/80 hover:bg-muted">
             <Link href="/citoyen/analyser">
               <Camera size={16} />
               {t.citoyen.analyze}

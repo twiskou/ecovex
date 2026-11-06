@@ -16,7 +16,7 @@ export function EmpreinteLocalComparison({ comparison }: EmpreinteLocalCompariso
   const { lang, t } = useLang();
 
   return (
-    <Card className="text-start border-border/70 shadow-xs">
+    <Card className="text-start border-border/70 shadow-xs bg-card">
       <CardHeader>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div className="space-y-1">
@@ -100,8 +100,8 @@ export function EmpreinteLocalComparison({ comparison }: EmpreinteLocalCompariso
               <div
                 className={`p-3.5 rounded-xl border ${
                   comparison.differenceKg >= 0
-                    ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-700 dark:text-emerald-400"
-                    : "bg-amber-500/10 border-amber-500/20 text-amber-700 dark:text-amber-400"
+                    ? "bg-secondary/40 border-primary/25 text-primary"
+                    : "bg-[#E99A45]/15 border-[#E99A45]/30 text-[#B86815] dark:text-[#E99A45]"
                 }`}
               >
                 <div className="flex items-center justify-between">

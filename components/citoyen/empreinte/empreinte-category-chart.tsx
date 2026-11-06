@@ -18,7 +18,7 @@ export function EmpreinteCategoryChart({
   const { lang, t } = useLang();
 
   return (
-    <Card className="text-start border-border/70 shadow-xs h-full flex flex-col justify-between">
+    <Card className="text-start border-border/70 shadow-xs h-full flex flex-col justify-between bg-card">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="space-y-1">

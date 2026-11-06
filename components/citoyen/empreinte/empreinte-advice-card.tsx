@@ -14,11 +14,11 @@ export function EmpreinteAdviceCard({ advice }: EmpreinteAdviceCardProps) {
   const { lang, t } = useLang();
 
   return (
-    <Card className="text-start border-border/70 shadow-xs">
+    <Card className="text-start border-border/70 shadow-xs bg-card">
       <CardHeader>
         <div className="space-y-1">
           <CardTitle className="text-base flex items-center gap-2">
-            <Lightbulb size={18} className="text-amber-500" />
+            <Lightbulb size={18} className="text-[#E99A45]" />
             {t.empreinte.adviceTitle}
           </CardTitle>
           <CardDescription>{t.empreinte.adviceSub}</CardDescription>

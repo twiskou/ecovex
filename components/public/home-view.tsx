@@ -45,19 +45,19 @@ export function HomeView({ statsData }: HomeViewProps) {
   return (
     <div className="flex flex-col">
       {/* ─── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-eco-50 via-background to-background py-20 sm:py-28 lg:py-36">
+      <section className="relative overflow-hidden bg-gradient-to-br from-secondary/30 via-background to-background py-20 sm:py-28 lg:py-36">
         {/* Background decoration */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 overflow-hidden"
         >
-          <div className="absolute -top-24 ltr:-right-24 rtl:-left-24 w-[480px] h-[480px] rounded-full bg-primary/8 blur-3xl" />
-          <div className="absolute top-1/2 ltr:-left-24 rtl:-right-24 w-[320px] h-[320px] rounded-full bg-eco-200/40 blur-3xl" />
+          <div className="absolute -top-24 ltr:-right-24 rtl:-left-24 w-[480px] h-[480px] rounded-full bg-primary/10 blur-3xl" />
+          <div className="absolute top-1/2 ltr:-left-24 rtl:-right-24 w-[320px] h-[320px] rounded-full bg-secondary/30 blur-3xl" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <Badge variant="secondary" className="mb-6 gap-1.5">
+            <Badge variant="eco" className="mb-6 gap-1.5 shadow-xs">
               <Leaf size={12} className="text-primary" />
               {t.home.badge}
             </Badge>
@@ -72,13 +72,13 @@ export function HomeView({ statsData }: HomeViewProps) {
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild className="gap-2">
+              <Button size="lg" asChild className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md">
                 <Link href="/inscription">
                   {t.home.ctaStart}
                   <ArrowRight size={18} className="rtl:rotate-180" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" asChild className="border-border/80 bg-card hover:bg-muted">
                 <Link href="/fonctionnalites">{t.home.ctaFeatures}</Link>
               </Button>
             </div>
@@ -138,8 +138,8 @@ export function HomeView({ statsData }: HomeViewProps) {
               </div>
 
               {/* Floating Pro Badge 2 - Right / End */}
-              <div className="hidden sm:flex absolute -top-4 end-2 sm:end-6 items-center gap-3 bg-background/90 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-primary/20 shadow-xl text-xs font-semibold text-foreground">
-                <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center shrink-0">
+              <div className="hidden sm:flex absolute -top-4 end-2 sm:end-6 items-center gap-3 bg-card/95 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-border/80 shadow-xl text-xs font-semibold text-foreground">
+                <div className="w-9 h-9 rounded-xl bg-[#E99A45]/15 text-[#B86815] dark:text-[#E99A45] flex items-center justify-center shrink-0">
                   <Star size={18} />
                 </div>
                 <div className="text-start">
@@ -290,7 +290,7 @@ export function HomeView({ statsData }: HomeViewProps) {
             {/* Cinematic Gradient & Glass Overlay for contrast and readability */}
             <div
               aria-hidden="true"
-              className="absolute inset-0 bg-gradient-to-r from-emerald-950/92 via-emerald-900/85 to-teal-950/92 backdrop-blur-[1px]"
+              className="absolute inset-0 bg-gradient-to-r from-[#263326]/95 via-[#3F4D2B]/90 to-[#263326]/95 backdrop-blur-[1px]"
             />
 
             {/* Ambient Lighting Accents */}
@@ -298,21 +298,21 @@ export function HomeView({ statsData }: HomeViewProps) {
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 overflow-hidden"
             >
-              <div className="absolute -top-24 ltr:-right-24 rtl:-left-24 w-80 h-80 rounded-full bg-emerald-400/20 blur-3xl" />
-              <div className="absolute -bottom-24 ltr:-left-24 rtl:-right-24 w-80 h-80 rounded-full bg-teal-300/15 blur-3xl" />
+              <div className="absolute -top-24 ltr:-right-24 rtl:-left-24 w-80 h-80 rounded-full bg-[#C5D6A4]/20 blur-3xl" />
+              <div className="absolute -bottom-24 ltr:-left-24 rtl:-right-24 w-80 h-80 rounded-full bg-[#E99A45]/15 blur-3xl" />
             </div>
 
             {/* Content */}
             <div className="relative z-10 max-w-2xl mx-auto">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md border border-white/25 text-white shadow-xl shadow-emerald-950/40 mb-6">
-                <Leaf size={28} className="text-emerald-300" />
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md border border-white/25 text-white shadow-xl shadow-black/40 mb-6">
+                <Leaf size={28} className="text-[#C5D6A4]" />
               </div>
 
               <h2 className="text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl tracking-tight leading-tight drop-shadow-md">
                 {t.home.ctaBannerTitle}
               </h2>
 
-              <p className="mt-4 text-base sm:text-lg text-emerald-50/90 leading-relaxed max-w-xl mx-auto drop-shadow-sm font-normal">
+              <p className="mt-4 text-base sm:text-lg text-[#F2EBDD]/90 leading-relaxed max-w-xl mx-auto drop-shadow-sm font-normal">
                 {t.home.ctaBannerSub}
               </p>
 
@@ -320,7 +320,7 @@ export function HomeView({ statsData }: HomeViewProps) {
                 <Button
                   size="lg"
                   asChild
-                  className="gap-2 bg-white text-emerald-950 hover:bg-white/95 hover:shadow-xl hover:shadow-white/25 transition-all font-bold px-7 h-12 rounded-xl text-sm"
+                  className="gap-2 bg-white text-[#263326] hover:bg-[#FAF6EF] hover:shadow-xl transition-all font-bold px-7 h-12 rounded-xl text-sm"
                 >
                   <Link href="/inscription">
                     {t.home.ctaBannerBtn}
@@ -338,19 +338,19 @@ export function HomeView({ statsData }: HomeViewProps) {
               </div>
 
               {/* Trust Indicators */}
-              <div className="mt-10 pt-8 border-t border-white/15 flex flex-wrap items-center justify-center gap-6 text-xs text-emerald-100/80 font-medium">
+              <div className="mt-10 pt-8 border-t border-white/15 flex flex-wrap items-center justify-center gap-6 text-xs text-[#F2EBDD]/80 font-medium">
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle size={14} className="text-emerald-400" />
+                  <CheckCircle size={14} className="text-[#C5D6A4]" />
                   {t.home.proofFree}
                 </span>
                 <span className="hidden sm:inline opacity-40">•</span>
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle size={14} className="text-emerald-400" />
+                  <CheckCircle size={14} className="text-[#C5D6A4]" />
                   {t.home.proofVerified}
                 </span>
                 <span className="hidden sm:inline opacity-40">•</span>
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle size={14} className="text-emerald-400" />
+                  <CheckCircle size={14} className="text-[#C5D6A4]" />
                   {t.home.proofBilingual}
                 </span>
               </div>

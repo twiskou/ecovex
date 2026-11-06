@@ -67,7 +67,7 @@ export function CitoyenDashboardView({
   return (
     <div className="space-y-8">
       {/* Welcome Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-primary/10 via-background to-background p-6 rounded-2xl border border-primary/20 text-start">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-primary/12 via-secondary/20 to-card p-6 rounded-2xl border border-primary/25 shadow-xs text-start">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
             {lang === "ar" ? "مرحباً، " : "Bonjour, "}
@@ -80,13 +80,13 @@ export function CitoyenDashboardView({
           </p>
         </div>
         <div className="flex flex-wrap gap-2.5">
-          <Button asChild size="sm" className="gap-2 font-medium">
+          <Button asChild size="sm" className="gap-2 font-medium bg-primary text-primary-foreground hover:bg-primary/90 shadow-xs">
             <Link href="/citoyen/operations/nouvelle">
               <PlusCircle size={16} />
               {t.citoyen.newOp}
             </Link>
           </Button>
-          <Button asChild variant="outline" size="sm" className="gap-2 font-medium">
+          <Button asChild variant="outline" size="sm" className="gap-2 font-medium border-border/80 bg-card hover:bg-muted">
             <Link href="/citoyen/analyser">
               <Camera size={16} />
               {t.citoyen.analyze}
@@ -97,7 +97,7 @@ export function CitoyenDashboardView({
 
       {/* Metrics Row */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <Card className="hover:ring-primary/20 transition-all text-start">
+        <Card className="hover:ring-primary/25 transition-all text-start border-border/70 shadow-xs bg-card">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               {t.citoyen.balance}
@@ -116,12 +116,12 @@ export function CitoyenDashboardView({
           </CardContent>
         </Card>
 
-        <Card className="hover:ring-primary/20 transition-all text-start">
+        <Card className="hover:ring-primary/25 transition-all text-start border-border/70 shadow-xs bg-card">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               {t.citoyen.pendingSubmissions}
             </CardTitle>
-            <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600">
+            <div className="p-2 rounded-xl bg-[#E99A45]/15 text-[#B86815] dark:text-[#E99A45]">
               <Clock size={20} />
             </div>
           </CardHeader>
@@ -135,12 +135,12 @@ export function CitoyenDashboardView({
           </CardContent>
         </Card>
 
-        <Card className="hover:ring-primary/20 transition-all text-start">
+        <Card className="hover:ring-primary/25 transition-all text-start border-border/70 shadow-xs bg-card">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               {t.citoyen.approvedSubmissions}
             </CardTitle>
-            <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600">
+            <div className="p-2 rounded-xl bg-secondary/50 text-primary">
               <CheckCircle size={20} />
             </div>
           </CardHeader>

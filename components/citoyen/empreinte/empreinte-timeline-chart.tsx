@@ -23,7 +23,7 @@ export function EmpreinteTimelineChart({ timeline }: EmpreinteTimelineChartProps
   const maxKg = Math.max(...currentPoints.map((p) => Math.max(p.validatedKg, p.declaredKg)), 1);
 
   return (
-    <Card className="text-start border-border/70 shadow-xs h-full flex flex-col justify-between">
+    <Card className="text-start border-border/70 shadow-xs h-full flex flex-col justify-between bg-card">
       <CardHeader>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="space-y-1">
@@ -75,12 +75,12 @@ export function EmpreinteTimelineChart({ timeline }: EmpreinteTimelineChartProps
             {/* Legend */}
             <div className="flex items-center justify-end gap-4 text-xs text-muted-foreground">
               <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-xs bg-emerald-500" />
-                <span>{t.empreinte.totalValidated}</span>
+                <span className="w-3 h-3 rounded-xs bg-primary" />
+                <span className="font-medium text-foreground">{t.empreinte.totalValidated}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-xs bg-amber-400/60" />
-                <span>{t.empreinte.totalDeclared}</span>
+                <span className="w-3 h-3 rounded-xs bg-[#E99A45]" />
+                <span className="font-medium text-foreground">{t.empreinte.totalDeclared}</span>
               </div>
             </div>
 
@@ -99,11 +99,11 @@ export function EmpreinteTimelineChart({ timeline }: EmpreinteTimelineChartProps
                     {/* Tooltip on hover */}
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-12 z-20 pointer-events-none bg-foreground text-background text-[11px] py-1 px-2 rounded-md shadow-lg whitespace-nowrap">
                       <p className="font-semibold">{labelText}</p>
-                      <p className="text-emerald-300">
+                      <p className="text-secondary font-bold">
                         {pt.validatedKg} kg {lang === "ar" ? "معتمد" : "validé"}
                       </p>
                       {pt.declaredKg > pt.validatedKg && (
-                        <p className="text-amber-300">
+                        <p className="text-[#E99A45]">
                           {pt.declaredKg} kg {lang === "ar" ? "مصرّح" : "déclaré"}
                         </p>
                       )}
@@ -111,14 +111,14 @@ export function EmpreinteTimelineChart({ timeline }: EmpreinteTimelineChartProps
 
                     {/* Bars pair */}
                     <div className="w-full flex items-end justify-center gap-1 h-full">
-                      {/* Declared bar */}
+                      {/* Declared bar (Orange) */}
                       <div
-                        className="w-2.5 sm:w-4 bg-amber-400/50 hover:bg-amber-400/70 rounded-t-xs transition-all duration-500"
+                        className="w-2.5 sm:w-4 bg-[#E99A45]/50 hover:bg-[#E99A45]/80 rounded-t-xs transition-all duration-500"
                         style={{ height: `${decHeight}%` }}
                       />
-                      {/* Validated bar */}
+                      {/* Validated bar (Olive) */}
                       <div
-                        className="w-2.5 sm:w-4 bg-emerald-500 hover:bg-emerald-600 rounded-t-xs transition-all duration-500 shadow-xs"
+                        className="w-2.5 sm:w-4 bg-primary hover:bg-primary/80 rounded-t-xs transition-all duration-500 shadow-xs"
                         style={{ height: `${valHeight}%` }}
                       />
                     </div>

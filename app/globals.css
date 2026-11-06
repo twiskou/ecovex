@@ -46,99 +46,117 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  /* ECOVEX brand colors */
-  --color-eco-50: var(--eco-50);
-  --color-eco-100: var(--eco-100);
-  --color-eco-200: var(--eco-200);
-  --color-eco-300: var(--eco-300);
-  --color-eco-400: var(--eco-400);
-  --color-eco-500: var(--eco-500);
-  --color-eco-600: var(--eco-600);
-  --color-eco-700: var(--eco-700);
-  --color-eco-800: var(--eco-800);
-  --color-eco-900: var(--eco-900);
+
+  /* ECOVEX Official Natural Palette */
+  --color-olive: #697746;
+  --color-olive-dark: #535f37;
+  --color-olive-light: #7e8f57;
+  --color-beige: #F2EBDD;
+  --color-beige-light: #FAF6EF;
+  --color-beige-dark: #E4DAC7;
+  --color-light-green: #C5D6A4;
+  --color-light-green-dark: #AEC486;
+  --color-orange-eco: #E99A45;
+  --color-dark-green: #263326;
 }
 
 :root {
-  /* ECOVEX Green palette */
-  --eco-50: oklch(0.975 0.04 148);
-  --eco-100: oklch(0.944 0.075 150);
-  --eco-200: oklch(0.895 0.12 152);
-  --eco-300: oklch(0.82 0.155 154);
-  --eco-400: oklch(0.72 0.175 155);
-  --eco-500: oklch(0.62 0.185 155);
-  --eco-600: oklch(0.53 0.175 155);
-  --eco-700: oklch(0.44 0.155 155);
-  --eco-800: oklch(0.36 0.125 155);
-  --eco-900: oklch(0.28 0.095 155);
+  /* ECOVEX Official Natural Palette Tokens — Light Mode */
+  --background: #F2EBDD;
+  --foreground: #263326;
 
-  /* Semantic tokens — light mode */
-  --background: oklch(0.99 0.003 148);
-  --foreground: oklch(0.16 0.012 155);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.16 0.012 155);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.16 0.012 155);
-  --primary: oklch(0.53 0.175 155);
-  --primary-foreground: oklch(0.99 0.003 148);
-  --secondary: oklch(0.95 0.025 150);
-  --secondary-foreground: oklch(0.36 0.125 155);
-  --muted: oklch(0.96 0.012 148);
-  --muted-foreground: oklch(0.52 0.03 155);
-  --accent: oklch(0.944 0.075 150);
-  --accent-foreground: oklch(0.44 0.155 155);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.015 150);
-  --input: oklch(0.9 0.015 150);
-  --ring: oklch(0.62 0.185 155);
-  --chart-1: oklch(0.62 0.185 155);
-  --chart-2: oklch(0.72 0.175 155);
-  --chart-3: oklch(0.82 0.155 154);
-  --chart-4: oklch(0.44 0.155 155);
-  --chart-5: oklch(0.36 0.125 155);
+  /* Elevated white cards and surfaces for high contrast & readability */
+  --card: #FFFFFF;
+  --card-foreground: #263326;
+  --popover: #FFFFFF;
+  --popover-foreground: #263326;
+
+  /* Olive Green: primary brand, buttons, active sidebar */
+  --primary: #697746;
+  --primary-foreground: #FFFFFF;
+
+  /* Light Green: ecological cards, badges, positive secondary elements */
+  --secondary: #C5D6A4;
+  --secondary-foreground: #263326;
+
+  /* Warm beige tones for muted surfaces and borders */
+  --muted: #E6DDCB;
+  --muted-foreground: #5A6B56;
+  --accent: #D6E4BA;
+  --accent-foreground: #263326;
+
+  /* Orange: notifications, secondary CTAs, warnings */
+  --eco-orange: #E99A45;
+  --destructive: #C94A29;
+
+  /* Borders: natural warm sand tone */
+  --border: #DFD5C2;
+  --input: #DFD5C2;
+  --ring: #697746;
+
+  /* Charts & Data visualizations */
+  --chart-1: #697746; /* Olive */
+  --chart-2: #C5D6A4; /* Light green */
+  --chart-3: #E99A45; /* Orange */
+  --chart-4: #263326; /* Dark green */
+  --chart-5: #8C9B6A; /* Soft olive */
+
   --radius: 0.625rem;
-  --sidebar: oklch(0.975 0.04 148);
-  --sidebar-foreground: oklch(0.16 0.012 155);
-  --sidebar-primary: oklch(0.53 0.175 155);
-  --sidebar-primary-foreground: oklch(0.99 0.003 148);
-  --sidebar-accent: oklch(0.944 0.075 150);
-  --sidebar-accent-foreground: oklch(0.44 0.155 155);
-  --sidebar-border: oklch(0.9 0.015 150);
-  --sidebar-ring: oklch(0.62 0.185 155);
+
+  /* Sidebar: warm earthy contrast */
+  --sidebar: #EAE1CF;
+  --sidebar-foreground: #263326;
+  --sidebar-primary: #697746;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #C5D6A4;
+  --sidebar-accent-foreground: #263326;
+  --sidebar-border: #DFD5C2;
+  --sidebar-ring: #697746;
 }
 
 .dark {
-  --background: oklch(0.13 0.01 155);
-  --foreground: oklch(0.97 0.01 148);
-  --card: oklch(0.18 0.015 155);
-  --card-foreground: oklch(0.97 0.01 148);
-  --popover: oklch(0.18 0.015 155);
-  --popover-foreground: oklch(0.97 0.01 148);
-  --primary: oklch(0.72 0.175 155);
-  --primary-foreground: oklch(0.13 0.01 155);
-  --secondary: oklch(0.22 0.02 155);
-  --secondary-foreground: oklch(0.97 0.01 148);
-  --muted: oklch(0.22 0.02 155);
-  --muted-foreground: oklch(0.65 0.05 150);
-  --accent: oklch(0.25 0.03 155);
-  --accent-foreground: oklch(0.82 0.155 154);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.72 0.175 155);
-  --chart-1: oklch(0.72 0.175 155);
-  --chart-2: oklch(0.82 0.155 154);
-  --chart-3: oklch(0.62 0.185 155);
-  --chart-4: oklch(0.53 0.175 155);
-  --chart-5: oklch(0.44 0.155 155);
-  --sidebar: oklch(0.16 0.015 155);
-  --sidebar-foreground: oklch(0.97 0.01 148);
-  --sidebar-primary: oklch(0.72 0.175 155);
-  --sidebar-primary-foreground: oklch(0.13 0.01 155);
-  --sidebar-accent: oklch(0.22 0.02 155);
-  --sidebar-accent-foreground: oklch(0.82 0.155 154);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.72 0.175 155);
+  /* ECOVEX Official Palette — Dark Mode */
+  --background: #182218;
+  --foreground: #F2EBDD;
+
+  --card: #202D20;
+  --card-foreground: #F2EBDD;
+  --popover: #202D20;
+  --popover-foreground: #F2EBDD;
+
+  /* Lighter accessible olive on dark backgrounds */
+  --primary: #8FA663;
+  --primary-foreground: #182218;
+
+  --secondary: #2C3C2C;
+  --secondary-foreground: #C5D6A4;
+
+  --muted: #253425;
+  --muted-foreground: #A1B29B;
+  --accent: #2C3C2C;
+  --accent-foreground: #C5D6A4;
+
+  --eco-orange: #E99A45;
+  --destructive: #E06A4B;
+
+  --border: #2E402E;
+  --input: #2E402E;
+  --ring: #8FA663;
+
+  --chart-1: #8FA663;
+  --chart-2: #C5D6A4;
+  --chart-3: #E99A45;
+  --chart-4: #F2EBDD;
+  --chart-5: #697746;
+
+  --sidebar: #151E15;
+  --sidebar-foreground: #F2EBDD;
+  --sidebar-primary: #8FA663;
+  --sidebar-primary-foreground: #182218;
+  --sidebar-accent: #253425;
+  --sidebar-accent-foreground: #C5D6A4;
+  --sidebar-border: #2E402E;
+  --sidebar-ring: #8FA663;
 }
 
 @layer base {

@@ -15,12 +15,12 @@ export function EmpreinteKpiCards({ summary }: EmpreinteKpiCardsProps) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {/* 1. Déchets Déclarés */}
-      <Card className="hover:ring-primary/20 transition-all text-start border-border/70 shadow-xs">
+      <Card className="hover:ring-primary/25 transition-all text-start border-border/70 shadow-xs bg-card">
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground">
             {t.empreinte.totalDeclared}
           </CardTitle>
-          <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600">
+          <div className="p-2 rounded-xl bg-[#E99A45]/15 text-[#B86815] dark:text-[#E99A45]">
             <Scale size={20} />
           </div>
         </CardHeader>
@@ -39,17 +39,17 @@ export function EmpreinteKpiCards({ summary }: EmpreinteKpiCardsProps) {
       </Card>
 
       {/* 2. Déchets Validés */}
-      <Card className="hover:ring-primary/20 transition-all text-start border-border/70 shadow-xs bg-gradient-to-br from-emerald-500/5 to-transparent">
+      <Card className="hover:ring-primary/25 transition-all text-start border-border/70 shadow-xs bg-card">
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground">
             {t.empreinte.totalValidated}
           </CardTitle>
-          <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600">
+          <div className="p-2 rounded-xl bg-secondary/50 text-primary">
             <CheckCircle2 size={20} />
           </div>
         </CardHeader>
         <CardContent>
-          <div className="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400">
+          <div className="text-3xl font-extrabold text-primary">
             {summary.totalValidatedKg}{" "}
             <span className="text-sm font-normal text-muted-foreground">
               {t.common.kg}
@@ -63,17 +63,17 @@ export function EmpreinteKpiCards({ summary }: EmpreinteKpiCardsProps) {
       </Card>
 
       {/* 3. CO2 Évité Estimé */}
-      <Card className="hover:ring-primary/20 transition-all text-start border-border/70 shadow-xs bg-gradient-to-br from-sky-500/5 to-transparent">
+      <Card className="hover:ring-primary/25 transition-all text-start border-border/70 shadow-xs bg-card">
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground">
             {t.empreinte.co2Avoided}
           </CardTitle>
-          <div className="p-2 rounded-xl bg-sky-500/10 text-sky-600">
+          <div className="p-2 rounded-xl bg-secondary/50 text-primary">
             <Leaf size={20} />
           </div>
         </CardHeader>
         <CardContent>
-          <div className="text-3xl font-extrabold text-sky-600 dark:text-sky-400">
+          <div className="text-3xl font-extrabold text-primary">
             {summary.estimatedCo2AvoidedKg}{" "}
             <span className="text-sm font-normal text-muted-foreground">
               {lang === "ar" ? "كغ CO₂" : "kg CO₂e"}
@@ -88,7 +88,7 @@ export function EmpreinteKpiCards({ summary }: EmpreinteKpiCardsProps) {
       </Card>
 
       {/* 4. Équivalences Écologiques */}
-      <Card className="hover:ring-primary/20 transition-all text-start border-border/70 shadow-xs">
+      <Card className="hover:ring-primary/25 transition-all text-start border-border/70 shadow-xs bg-card">
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground">
             {lang === "ar" ? "المكافئ البيئي" : "Équivalences concrètes"}
@@ -99,14 +99,14 @@ export function EmpreinteKpiCards({ summary }: EmpreinteKpiCardsProps) {
         </CardHeader>
         <CardContent className="space-y-1">
           <div className="flex items-center gap-1.5 text-xs text-foreground font-medium">
-            <Trees size={14} className="text-emerald-500 shrink-0" />
+            <Trees size={14} className="text-primary shrink-0" />
             <span>
               ≈ {summary.treesEquivalent}{" "}
               {lang === "ar" ? "شجرة تمتص لمدة سنة" : "arbre(s) / an"}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Car size={14} className="text-sky-500 shrink-0" />
+            <Car size={14} className="text-[#E99A45] shrink-0" />
             <span>
               ≈ {summary.carKmEquivalent}{" "}
               {lang === "ar" ? "كم بالسيارة تم تجنبها" : "km en voiture évités"}

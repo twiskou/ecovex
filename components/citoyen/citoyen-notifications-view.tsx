@@ -35,7 +35,7 @@ export function CitoyenNotificationsView({ submissions }: { submissions: Submiss
         </p>
       </div>
 
-      <Card>
+      <Card className="bg-card border-border/70 shadow-xs">
         <CardHeader>
           <CardTitle className="text-base">
             {lang === "ar" ? "التحديثات الأخيرة" : "Mises à jour récentes"}
@@ -49,7 +49,7 @@ export function CitoyenNotificationsView({ submissions }: { submissions: Submiss
         <CardContent>
           {submissions.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
-              <Bell size={36} className="mx-auto mb-3 opacity-30" />
+              <Bell size={36} className="mx-auto mb-3 opacity-30 text-[#E99A45]" />
               <p className="text-sm font-medium text-foreground">
                 {lang === "ar" ? "لا توجد إشعارات حتى الآن" : "Aucune notification pour l'instant"}
               </p>
@@ -71,10 +71,10 @@ export function CitoyenNotificationsView({ submissions }: { submissions: Submiss
                     <div
                       className={`p-2 rounded-xl shrink-0 mt-0.5 ${
                         isApproved
-                          ? "bg-emerald-500/10 text-emerald-600"
+                          ? "bg-secondary/50 text-primary border border-primary/20"
                           : isRejected
-                            ? "bg-destructive/10 text-destructive"
-                            : "bg-amber-500/10 text-amber-600"
+                            ? "bg-destructive/10 text-destructive border border-destructive/20"
+                            : "bg-[#E99A45]/15 text-[#B86815] dark:text-[#E99A45] border border-[#E99A45]/30"
                       }`}
                     >
                       {isApproved && <CheckCircle size={18} />}
