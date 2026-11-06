@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "cn";
+import logoLight from "@/public/brand-logo.png";
+import logoDark from "@/public/brand-logo-dark.png";
 
 interface LogoProps {
   size?: "sm" | "default" | "lg" | "xl";
@@ -13,24 +15,16 @@ interface LogoProps {
 
 const SIZE_CONFIGS = {
   sm: {
-    width: 134,
-    height: 35,
-    className: "h-7 sm:h-8 w-auto",
+    className: "h-8 sm:h-9 w-auto",
   },
   default: {
-    width: 153,
-    height: 40,
-    className: "h-8 sm:h-9 md:h-10 w-auto",
+    className: "h-9 sm:h-10 md:h-11 w-auto",
   },
   lg: {
-    width: 191,
-    height: 50,
-    className: "h-10 sm:h-11 md:h-12 w-auto",
+    className: "h-11 sm:h-12 md:h-13 w-auto",
   },
   xl: {
-    width: 230,
-    height: 60,
-    className: "h-12 sm:h-14 md:h-16 w-auto",
+    className: "h-14 sm:h-16 md:h-20 w-auto",
   },
 };
 
@@ -54,10 +48,8 @@ export function Logo({
       <div className="relative flex items-center justify-center shrink-0">
         {/* Light mode logo (with dark typography) */}
         <Image
-          src="/logo.png"
+          src={logoLight}
           alt="ECOVEX"
-          width={config.width}
-          height={config.height}
           priority
           className={cn(
             "object-contain transition-transform duration-200 group-hover:scale-[1.02] block dark:hidden",
@@ -66,10 +58,8 @@ export function Logo({
         />
         {/* Dark mode logo (with bright cream typography and glowing leaf) */}
         <Image
-          src="/logo-dark.png"
+          src={logoDark}
           alt="ECOVEX"
-          width={config.width}
-          height={config.height}
           priority
           className={cn(
             "object-contain transition-transform duration-200 group-hover:scale-[1.02] hidden dark:block",
