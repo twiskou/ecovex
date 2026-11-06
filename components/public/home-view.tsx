@@ -58,9 +58,9 @@ export function HomeView({ statsData }: HomeViewProps) {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <Badge variant="eco" className="mb-6 gap-1.5 shadow-xs border-eco-orange/30">
-              <Leaf size={12} className="text-eco-orange" />
-              <span className="text-eco-orange font-semibold">{t.home.badge}</span>
+            <Badge variant="eco" className="mb-6 gap-1.5 shadow-xs border-primary/20">
+              <Leaf size={12} className="text-primary" />
+              <span className="text-black dark:text-white font-semibold">{t.home.badge}</span>
             </Badge>
 
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl leading-tight">
