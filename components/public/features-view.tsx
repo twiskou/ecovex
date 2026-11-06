@@ -188,24 +188,21 @@ export function FeaturesView() {
                   return (
                     <Card
                       key={feat.title}
-                      className={`hover:ring-primary/20 transition-all text-start ${
-                        isOrangeAccent ? "border-eco-orange/30 bg-card" : ""
-                      }`}
+                      className={`hover:ring-primary/20 transition-all text-start ${isOrangeAccent ? "border-eco-orange/30 bg-card" : ""
+                        }`}
                     >
                       <CardHeader>
                         <div
-                          className={`flex items-center justify-center w-10 h-10 rounded-lg mb-3 ${
-                            isOrangeAccent
-                              ? "bg-eco-orange/15 text-eco-orange"
-                              : "bg-primary/10 text-primary"
-                          }`}
+                          className={`flex items-center justify-center w-10 h-10 rounded-lg mb-3 ${isOrangeAccent
+                            ? "bg-eco-orange/15 text-eco-orange"
+                            : "bg-primary/10 text-primary"
+                            }`}
                         >
                           <feat.icon size={20} />
                         </div>
                         <CardTitle
-                          className={`text-base ${
-                            isOrangeAccent ? "text-eco-orange font-bold" : ""
-                          }`}
+                          className={`text-base ${isOrangeAccent ? "text-eco-orange font-bold" : ""
+                            }`}
                         >
                           {feat.title}
                         </CardTitle>
